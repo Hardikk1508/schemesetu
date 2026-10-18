@@ -1,0 +1,586 @@
+{
+  "note": "Hand-labelled eligibility cases. Labels are written from the scheme criteria (not by running the engine). Only schemes listed under 'expected' are scored for a case. Grow to 50+ cases as you add verified schemes.",
+  "cases": [
+    {
+      "id": "c01_up_mother_65_farmer",
+      "description": "The demo utterance: 'meri maa 65 ki hain, kisan hain, UP mein'. Many fields still unknown.",
+      "profile": {
+        "beneficiary_relation": "mother",
+        "age": 65,
+        "gender": "female",
+        "state": "Uttar Pradesh",
+        "is_farmer": true
+      },
+      "expected": {
+        "pm_kisan": "needs_info",
+        "ignoaps": "needs_info",
+        "pm_jay": "needs_info",
+        "pmuy": "needs_info",
+        "pms_sc": "needs_info",
+        "apy": "not_eligible",
+        "ssy": "needs_info"
+      }
+    },
+    {
+      "id": "c02_widow_72_bpl_complete",
+      "description": "72-year-old BPL woman, no LPG, complete profile.",
+      "profile": {
+        "age": 72,
+        "gender": "female",
+        "state": "Bihar",
+        "is_bpl": true,
+        "is_farmer": false,
+        "owns_cultivable_land": false,
+        "has_lpg_connection": false,
+        "category": "general",
+        "is_student": false,
+        "has_bank_account": true,
+        "is_income_tax_payer": false,
+        "is_govt_employee": false,
+        "has_daughter_under_10": false,
+        "annual_income": 30000
+      },
+      "expected": {
+        "pm_kisan": "not_eligible",
+        "ignoaps": "eligible",
+        "pm_jay": "eligible",
+        "pmuy": "eligible",
+        "pms_sc": "not_eligible",
+        "apy": "not_eligible",
+        "ssy": "not_eligible"
+      }
+    },
+    {
+      "id": "c03_young_small_farmer_35",
+      "description": "35-year-old landholding farmer, not BPL, has a young daughter.",
+      "profile": {
+        "age": 35,
+        "gender": "male",
+        "state": "Madhya Pradesh",
+        "is_farmer": true,
+        "owns_cultivable_land": true,
+        "is_income_tax_payer": false,
+        "is_govt_employee": false,
+        "is_bpl": false,
+        "has_bank_account": true,
+        "category": "obc",
+        "is_student": false,
+        "has_lpg_connection": true,
+        "has_daughter_under_10": true,
+        "annual_income": 120000
+      },
+      "expected": {
+        "pm_kisan": "eligible",
+        "ignoaps": "not_eligible",
+        "pm_jay": "not_eligible",
+        "pmuy": "not_eligible",
+        "pms_sc": "not_eligible",
+        "apy": "eligible",
+        "ssy": "eligible"
+      }
+    },
+    {
+      "id": "c04_farmer_income_tax_payer",
+      "description": "50-year-old farmer who pays income tax: excluded from PM-KISAN.",
+      "profile": {
+        "age": 50,
+        "gender": "male",
+        "is_farmer": true,
+        "owns_cultivable_land": true,
+        "is_income_tax_payer": true,
+        "is_govt_employee": false,
+        "is_bpl": false,
+        "category": "general",
+        "is_student": false,
+        "has_bank_account": true,
+        "has_lpg_connection": true,
+        "has_daughter_under_10": false,
+        "annual_income": 900000
+      },
+      "expected": {
+        "pm_kisan": "not_eligible",
+        "ignoaps": "not_eligible",
+        "pm_jay": "not_eligible",
+        "pmuy": "not_eligible",
+        "pms_sc": "not_eligible",
+        "apy": "not_eligible",
+        "ssy": "not_eligible"
+      }
+    },
+    {
+      "id": "c05_sc_college_student_female",
+      "description": "20-year-old SC woman in college, family income ₹1.8 lakh.",
+      "profile": {
+        "age": 20,
+        "gender": "female",
+        "category": "sc",
+        "is_student": true,
+        "is_post_matric_student": true,
+        "annual_income": 180000,
+        "is_bpl": false,
+        "has_bank_account": true,
+        "is_income_tax_payer": false,
+        "is_farmer": false,
+        "has_lpg_connection": true,
+        "has_daughter_under_10": false,
+        "is_govt_employee": false
+      },
+      "expected": {
+        "pm_kisan": "not_eligible",
+        "ignoaps": "not_eligible",
+        "pm_jay": "not_eligible",
+        "pmuy": "not_eligible",
+        "pms_sc": "eligible",
+        "apy": "eligible",
+        "ssy": "not_eligible"
+      }
+    },
+    {
+      "id": "c06_sc_student_income_too_high",
+      "description": "SC student whose family earns ₹4 lakh, above the ₹2.5 lakh ceiling.",
+      "profile": {
+        "age": 19,
+        "gender": "male",
+        "category": "sc",
+        "is_student": true,
+        "is_post_matric_student": true,
+        "annual_income": 400000,
+        "is_bpl": false,
+        "has_bank_account": true,
+        "is_income_tax_payer": false,
+        "is_farmer": false,
+        "has_lpg_connection": true,
+        "has_daughter_under_10": false,
+        "is_govt_employee": false
+      },
+      "expected": {
+        "pm_kisan": "not_eligible",
+        "ignoaps": "not_eligible",
+        "pm_jay": "not_eligible",
+        "pmuy": "not_eligible",
+        "pms_sc": "not_eligible",
+        "apy": "eligible",
+        "ssy": "not_eligible"
+      }
+    },
+    {
+      "id": "c07_sc_student_income_at_ceiling",
+      "description": "Boundary: income exactly ₹2,50,000 is allowed (<=).",
+      "profile": {
+        "age": 18,
+        "gender": "female",
+        "category": "sc",
+        "is_post_matric_student": true,
+        "annual_income": 250000,
+        "has_bank_account": true,
+        "is_income_tax_payer": false
+      },
+      "expected": {
+        "pms_sc": "eligible",
+        "apy": "eligible"
+      }
+    },
+    {
+      "id": "c08_pension_age_exactly_60",
+      "description": "Boundary: exactly 60 and BPL qualifies for old-age pension.",
+      "profile": {
+        "age": 60,
+        "gender": "male",
+        "is_bpl": true
+      },
+      "expected": {
+        "ignoaps": "eligible",
+        "pm_jay": "eligible",
+        "apy": "not_eligible"
+      }
+    },
+    {
+      "id": "c09_pmjay_via_age_70_not_bpl",
+      "description": "OR-group: 70+ qualifies for PM-JAY even when not BPL.",
+      "profile": {
+        "age": 70,
+        "gender": "male",
+        "is_bpl": false
+      },
+      "expected": {
+        "pm_jay": "eligible",
+        "ignoaps": "not_eligible",
+        "pmuy": "not_eligible"
+      }
+    },
+    {
+      "id": "c10_pmjay_age_69_not_bpl",
+      "description": "OR-group: 69 and not BPL fails both routes.",
+      "profile": {
+        "age": 69,
+        "gender": "female",
+        "is_bpl": false
+      },
+      "expected": {
+        "pm_jay": "not_eligible",
+        "ignoaps": "not_eligible",
+        "pmuy": "not_eligible"
+      }
+    },
+    {
+      "id": "c11_apy_age_40_boundary",
+      "description": "Boundary: 40 is the last entry age for APY.",
+      "profile": {
+        "age": 40,
+        "has_bank_account": true,
+        "is_income_tax_payer": false
+      },
+      "expected": {
+        "apy": "eligible"
+      }
+    },
+    {
+      "id": "c12_apy_age_41",
+      "description": "Boundary: 41 is past the APY entry age.",
+      "profile": {
+        "age": 41,
+        "has_bank_account": true,
+        "is_income_tax_payer": false
+      },
+      "expected": {
+        "apy": "not_eligible"
+      }
+    },
+    {
+      "id": "c13_minor_girl_17",
+      "description": "17-year-old: too young for APY and Ujjwala.",
+      "profile": {
+        "age": 17,
+        "gender": "female",
+        "is_bpl": true,
+        "has_lpg_connection": false,
+        "has_bank_account": true,
+        "is_income_tax_payer": false
+      },
+      "expected": {
+        "apy": "not_eligible",
+        "pmuy": "not_eligible",
+        "pm_jay": "eligible",
+        "ignoaps": "not_eligible"
+      }
+    },
+    {
+      "id": "c14_empty_profile",
+      "description": "Nothing known yet: every scheme needs more information.",
+      "profile": {},
+      "expected": {
+        "pm_kisan": "needs_info",
+        "ignoaps": "needs_info",
+        "pm_jay": "needs_info",
+        "pmuy": "needs_info",
+        "pms_sc": "needs_info",
+        "apy": "needs_info",
+        "ssy": "needs_info"
+      }
+    },
+    {
+      "id": "c15_ujjwala_already_has_lpg",
+      "description": "BPL woman who already has an LPG connection.",
+      "profile": {
+        "age": 30,
+        "gender": "female",
+        "is_bpl": true,
+        "has_lpg_connection": true
+      },
+      "expected": {
+        "pmuy": "not_eligible",
+        "pm_jay": "eligible",
+        "ignoaps": "not_eligible"
+      }
+    },
+    {
+      "id": "c16_ujjwala_eligible",
+      "description": "BPL woman, 30, without LPG.",
+      "profile": {
+        "age": 30,
+        "gender": "female",
+        "is_bpl": true,
+        "has_lpg_connection": false
+      },
+      "expected": {
+        "pmuy": "eligible",
+        "pm_jay": "eligible",
+        "ignoaps": "not_eligible"
+      }
+    },
+    {
+      "id": "c17_not_a_student_derived",
+      "description": "is_student=false implies not a post-matric student, so the scholarship fails without asking.",
+      "profile": {
+        "age": 24,
+        "category": "sc",
+        "is_student": false,
+        "annual_income": 100000
+      },
+      "expected": {
+        "pms_sc": "not_eligible"
+      }
+    },
+    {
+      "id": "c18_govt_employee_farmer",
+      "description": "Landholding farmer who is a government employee: excluded.",
+      "profile": {
+        "is_farmer": true,
+        "owns_cultivable_land": true,
+        "is_income_tax_payer": false,
+        "is_govt_employee": true
+      },
+      "expected": {
+        "pm_kisan": "not_eligible"
+      }
+    },
+    {
+      "id": "c19_farmer_without_land",
+      "description": "Farm labourer without land in the family's name.",
+      "profile": {
+        "is_farmer": true,
+        "owns_cultivable_land": false,
+        "is_income_tax_payer": false,
+        "is_govt_employee": false
+      },
+      "expected": {
+        "pm_kisan": "not_eligible"
+      }
+    },
+    {
+      "id": "c20_parent_with_daughter_only",
+      "description": "Only fact known: has a daughter under 10.",
+      "profile": {
+        "has_daughter_under_10": true
+      },
+      "expected": {
+        "ssy": "eligible",
+        "apy": "needs_info",
+        "pm_jay": "needs_info"
+      }
+    },
+    {
+      "id": "c21_btech_girl_obc_nit",
+      "description": "20-year-old OBC girl in first-year BTech at an NIT (merit), family income ₹3 lakh, top 20% in Class 12.",
+      "profile": {
+        "age": 20,
+        "gender": "female",
+        "category": "obc",
+        "is_student": true,
+        "course_level": "undergraduate",
+        "is_technical_course": true,
+        "annual_income": 300000,
+        "gets_other_scholarship": false,
+        "class12_top20": true,
+        "is_employed_full_time": false,
+        "has_disability": false,
+        "is_minority": false,
+        "admitted_to_qhei": true,
+        "highest_qualification": "class_12",
+        "is_final_year": false
+      },
+      "expected": {
+        "aicte_pragati": "eligible",
+        "aicte_saksham": "not_eligible",
+        "csss": "eligible",
+        "pm_yasasvi_post": "not_eligible",
+        "pms_minority": "not_eligible",
+        "pms_st": "not_eligible",
+        "pms_sc": "not_eligible",
+        "pm_vidyalaxmi": "eligible",
+        "csis": "eligible",
+        "pm_internship": "not_eligible",
+        "nats": "not_eligible",
+        "pmkvy": "eligible",
+        "ssy": "needs_info"
+      }
+    },
+    {
+      "id": "c22_graduate_job_seeker",
+      "description": "24-year-old male BCom graduate, not studying, no job, family income ₹5 lakh.",
+      "profile": {
+        "age": 24,
+        "gender": "male",
+        "category": "general",
+        "is_student": false,
+        "highest_qualification": "graduate",
+        "is_employed_full_time": false,
+        "family_has_govt_employee": false,
+        "annual_income": 500000
+      },
+      "expected": {
+        "pm_internship": "eligible",
+        "nats": "eligible",
+        "pmkvy": "eligible",
+        "csss": "not_eligible",
+        "pms_sc": "not_eligible",
+        "aicte_pragati": "not_eligible",
+        "pm_sym": "not_eligible",
+        "apy": "needs_info",
+        "pmjjby": "needs_info",
+        "pmsby": "needs_info",
+        "standup_india": "not_eligible",
+        "pmmvy": "not_eligible"
+      }
+    },
+    {
+      "id": "c23_final_year_sc_student",
+      "description": "22-year-old SC man in final-year BSc (non-technical), family income ₹2 lakh, looking for an internship.",
+      "profile": {
+        "age": 22,
+        "gender": "male",
+        "category": "sc",
+        "is_student": true,
+        "course_level": "undergraduate",
+        "is_final_year": true,
+        "highest_qualification": "class_12",
+        "is_employed_full_time": false,
+        "family_has_govt_employee": false,
+        "annual_income": 200000,
+        "is_technical_course": false
+      },
+      "expected": {
+        "pm_internship": "eligible",
+        "pms_sc": "eligible",
+        "csss": "needs_info",
+        "csis": "not_eligible",
+        "aicte_saksham": "not_eligible",
+        "nats": "not_eligible"
+      }
+    },
+    {
+      "id": "c24_woman_street_vendor",
+      "description": "35-year-old OBC woman running a street stall in a city, income ₹1.2 lakh, no pucca house.",
+      "profile": {
+        "age": 35,
+        "gender": "female",
+        "category": "obc",
+        "is_street_vendor": true,
+        "lives_in_urban_area": true,
+        "annual_income": 120000,
+        "is_unorganised_worker": true,
+        "has_epf_esic_nps": false,
+        "is_income_tax_payer": false,
+        "has_bank_account": true,
+        "business_status": "running",
+        "owns_pucca_house": false
+      },
+      "expected": {
+        "pm_svanidhi": "eligible",
+        "pm_sym": "eligible",
+        "pmmy_mudra": "eligible",
+        "standup_india": "not_eligible",
+        "pmegp": "not_eligible",
+        "apy": "eligible",
+        "pmjjby": "eligible",
+        "pmsby": "eligible",
+        "pmay_u": "eligible",
+        "pmay_g": "not_eligible",
+        "pmmvy": "needs_info"
+      }
+    },
+    {
+      "id": "c25_young_small_farmer",
+      "description": "32-year-old farmer with 1.5 hectares in a village, no EPF/NPS, not a taxpayer.",
+      "profile": {
+        "age": 32,
+        "gender": "male",
+        "is_farmer": true,
+        "owns_cultivable_land": true,
+        "is_small_marginal_farmer": true,
+        "has_epf_esic_nps": false,
+        "is_income_tax_payer": false,
+        "is_govt_employee": false,
+        "lives_in_urban_area": false,
+        "owns_pucca_house": false
+      },
+      "expected": {
+        "pm_kisan": "eligible",
+        "pm_kmy": "eligible",
+        "pmay_g": "eligible",
+        "pmay_u": "not_eligible",
+        "ignoaps": "not_eligible"
+      }
+    },
+    {
+      "id": "c26_startup_founder",
+      "description": "26-year-old woman whose DPIIT-recognised startup was incorporated last year.",
+      "profile": {
+        "age": 26,
+        "gender": "female",
+        "category": "general",
+        "is_new_dpiit_startup": true,
+        "business_status": "running",
+        "is_student": false
+      },
+      "expected": {
+        "sisfs": "eligible",
+        "pmmy_mudra": "eligible",
+        "standup_india": "not_eligible",
+        "pmegp": "not_eligible",
+        "aicte_pragati": "not_eligible"
+      }
+    },
+    {
+      "id": "c27_minority_pg_student",
+      "description": "23-year-old Muslim woman doing an MSc, family income ₹1.8 lakh.",
+      "profile": {
+        "age": 23,
+        "gender": "female",
+        "is_minority": true,
+        "is_student": true,
+        "course_level": "postgraduate",
+        "annual_income": 180000,
+        "has_disability": false,
+        "category": "general",
+        "is_technical_course": false
+      },
+      "expected": {
+        "pms_minority": "eligible",
+        "aicte_pragati": "not_eligible",
+        "csss": "needs_info",
+        "pms_sc": "not_eligible"
+      }
+    },
+    {
+      "id": "c28_pregnant_rural_bpl",
+      "description": "27-year-old pregnant woman in a BPL village household with no LPG; family owns a pucca house.",
+      "profile": {
+        "age": 27,
+        "gender": "female",
+        "is_pregnant_or_new_mother": true,
+        "lives_in_urban_area": false,
+        "is_bpl": true,
+        "has_lpg_connection": false,
+        "has_bank_account": true,
+        "owns_pucca_house": true
+      },
+      "expected": {
+        "pmmvy": "eligible",
+        "pmuy": "eligible",
+        "pmay_g": "not_eligible",
+        "pm_jay": "eligible",
+        "pmsby": "eligible"
+      }
+    },
+    {
+      "id": "c29_disabled_diploma_student",
+      "description": "19-year-old man with a 45% disability in first-year polytechnic diploma, family income ₹3 lakh.",
+      "profile": {
+        "age": 19,
+        "gender": "male",
+        "has_disability": true,
+        "is_student": true,
+        "course_level": "diploma",
+        "is_technical_course": true,
+        "annual_income": 300000
+      },
+      "expected": {
+        "aicte_saksham": "eligible",
+        "aicte_pragati": "not_eligible",
+        "csis": "eligible",
+        "csss": "not_eligible"
+      }
+    }
+  ]
+}

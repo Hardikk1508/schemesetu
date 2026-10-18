@@ -1,0 +1,28 @@
+# Secrets: never commit (examples are fine)
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+backend/storage/
+backend/eval/report*.json
+
+# Node
+frontend/node_modules/
+frontend/.next/
+
+# Local databases and logs
+*.db
+*.db-journal
+*.sqlite3
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

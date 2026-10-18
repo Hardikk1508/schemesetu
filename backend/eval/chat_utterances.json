@@ -1,0 +1,230 @@
+{
+  "note": "Hand-labelled chat messages and the profile fields they state. 'pending' is the question just asked. 'llm_only' cases need real language understanding; the basic parser is not expected to get them.",
+  "cases": [
+    {
+      "id": "u01",
+      "message": "meri maa 65 ki hain, kisan hain, UP mein",
+      "expected": {
+        "beneficiary_relation": "mother",
+        "gender": "female",
+        "age": 65,
+        "is_farmer": true,
+        "state": "Uttar Pradesh"
+      }
+    },
+    {
+      "id": "u02",
+      "message": "I am a 21 year old girl doing BTech, family income 3 lakh, OBC",
+      "expected": {
+        "age": 21,
+        "gender": "female",
+        "course_level": "undergraduate",
+        "is_student": true,
+        "annual_income": 300000,
+        "category": "obc",
+        "is_technical_course": true
+      }
+    },
+    {
+      "id": "u03",
+      "message": "mere papa 70 saal ke hain, BPL card hai",
+      "expected": {
+        "beneficiary_relation": "father",
+        "gender": "male",
+        "age": 70,
+        "is_bpl": true
+      }
+    },
+    {
+      "id": "u04",
+      "message": "beti 8 saal ki hai aur meri umar 32",
+      "expected": {
+        "has_daughter_under_10": true,
+        "age": 32
+      }
+    },
+    {
+      "id": "u05",
+      "message": "main kisan nahi hoon",
+      "expected": {
+        "is_farmer": false
+      }
+    },
+    {
+      "id": "u06",
+      "message": "मेरी उम्र 45 साल है और मैं किसान हूँ",
+      "expected": {
+        "age": 45,
+        "is_farmer": true
+      }
+    },
+    {
+      "id": "u07",
+      "message": "BCom pass kar chuka hoon, berozgar hoon, 23 saal",
+      "expected": {
+        "highest_qualification": "graduate",
+        "is_employed_full_time": false,
+        "age": 23
+      }
+    },
+    {
+      "id": "u08",
+      "pending": "annual_income",
+      "message": "15000 per month",
+      "expected": {
+        "annual_income": 180000
+      }
+    },
+    {
+      "id": "u09",
+      "pending": "is_bpl",
+      "message": "haan ji",
+      "expected": {
+        "is_bpl": true
+      }
+    },
+    {
+      "id": "u10",
+      "pending": "is_bpl",
+      "message": "nahi hai",
+      "expected": {
+        "is_bpl": false
+      }
+    },
+    {
+      "id": "u11",
+      "pending": "gender",
+      "message": "महिला",
+      "expected": {
+        "gender": "female"
+      }
+    },
+    {
+      "id": "u12",
+      "pending": "category",
+      "message": "SC",
+      "expected": {
+        "category": "sc"
+      }
+    },
+    {
+      "id": "u13",
+      "pending": "course_level",
+      "message": "diploma kar raha hoon",
+      "expected": {
+        "course_level": "diploma",
+        "is_student": true
+      }
+    },
+    {
+      "id": "u14",
+      "pending": "age",
+      "message": "35",
+      "expected": {
+        "age": 35
+      }
+    },
+    {
+      "id": "u15",
+      "pending": "annual_income",
+      "message": "2.5 lakh",
+      "expected": {
+        "annual_income": 250000
+      }
+    },
+    {
+      "id": "u16",
+      "message": "I am a street vendor in Delhi, 40 years old",
+      "expected": {
+        "is_street_vendor": true,
+        "state": "Delhi",
+        "age": 40
+      }
+    },
+    {
+      "id": "u17",
+      "message": "meri wife pregnant hai",
+      "expected": {
+        "is_pregnant_or_new_mother": true,
+        "gender": "female",
+        "beneficiary_relation": "wife"
+      }
+    },
+    {
+      "id": "u18",
+      "message": "Main divyang hoon aur polytechnic mein padhta hoon",
+      "expected": {
+        "has_disability": true,
+        "course_level": "diploma",
+        "is_student": true,
+        "is_technical_course": true
+      }
+    },
+    {
+      "id": "u19",
+      "message": "hum muslim hain, family ki kamai 1.5 lakh saal ki",
+      "expected": {
+        "is_minority": true,
+        "annual_income": 150000
+      }
+    },
+    {
+      "id": "u23",
+      "message": "I am 24, BCom graduate, no job",
+      "expected": {
+        "age": 24,
+        "highest_qualification": "graduate",
+        "is_employed_full_time": false
+      }
+    },
+    {
+      "id": "u24",
+      "message": "i'm 19 and studying BSc",
+      "expected": {
+        "age": 19,
+        "course_level": "undergraduate",
+        "is_student": true
+      }
+    },
+    {
+      "id": "u25",
+      "message": "naukri nahi hai, 12th pass hoon",
+      "expected": {
+        "is_employed_full_time": false,
+        "highest_qualification": "class_12"
+      }
+    },
+    {
+      "id": "u20",
+      "llm_only": true,
+      "message": "Meri behen engineering ke first year mein hai, ghar ki income 4 lakh ke aas paas hai",
+      "expected": {
+        "gender": "female",
+        "is_student": true,
+        "course_level": "undergraduate",
+        "annual_income": 400000,
+        "beneficiary_relation": "sister",
+        "is_final_year": false,
+        "is_technical_course": true
+      }
+    },
+    {
+      "id": "u21",
+      "llm_only": true,
+      "message": "My father retired from the railways and gets a pension",
+      "expected": {
+        "beneficiary_relation": "father",
+        "gender": "male",
+        "is_govt_employee": true
+      }
+    },
+    {
+      "id": "u22",
+      "llm_only": true,
+      "message": "dukaan kholna chahta hoon",
+      "expected": {
+        "business_status": "planning_new"
+      }
+    }
+  ]
+}

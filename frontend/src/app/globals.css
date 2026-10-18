@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/* Design tokens. Status colours are always paired with an icon and a text label. */
+@theme {
+  --color-paper: #f6f3ec;
+  --color-surface: #ffffff;
+  --color-ink: #14213d;
+  --color-ink-2: #46506a;
+  --color-ink-3: #6b7387;
+  --color-line: #e5dfd2;
+  --color-line-strong: #cfc6b4;
+
+  --color-brand: #0b5d73;
+  --color-brand-strong: #084a5c;
+  --color-brand-soft: #e3eff2;
+  --color-marigold: #f4a62a;
+  --color-marigold-soft: #fdf3df;
+
+  --color-ok: #136c45;
+  --color-ok-soft: #e4f3ea;
+  --color-ok-line: #b9dfc9;
+  --color-wait: #8a5300;
+  --color-wait-soft: #fdf0d8;
+  --color-wait-line: #f0d29a;
+  --color-no: #586174;
+  --color-no-soft: #eef0f3;
+  --color-no-line: #d8dce3;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdecea;
+
+  --shadow-card: 0 1px 2px rgb(20 33 61 / 0.04), 0 4px 16px -6px rgb(20 33 61 / 0.08);
+  --shadow-pop: 0 12px 40px -12px rgb(20 33 61 / 0.35);
+
+  --animate-rise: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-pop: pop 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.4) both;
+  --animate-fade: fade 0.3s ease-out both;
+  --animate-eq: eq 0.9s ease-in-out infinite;
+  --animate-breathe: breathe 2.2s ease-in-out infinite;
+
+  @keyframes eq {
+    0%,
+    100% {
+      transform: scaleY(0.3);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0.3;
+      transform: scale(0.5);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-mukta), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Devanagari needs a little more vertical room than Latin. */
+:lang(hi) body {
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--color-marigold-soft);
+}
+
+/* In the base layer so utilities like outline-none can switch it off where a parent shows focus instead. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Devanagari matras clip at tight Latin heading leading. Unlayered, so it wins over leading-* utilities. */
+:lang(hi) :is(h1, h2, h3) {
+  line-height: 1.35;
+}
+
+/* Respect "reduce motion": no entrance animations, staggers or slides. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,2189 @@
+{
+  "data_note": "SAMPLE DATA. Rules are simplified from public scheme pages and have NOT been verified against the latest official guidelines. Clauses are descriptive, not exact paragraph numbers. Replace with verified data and set verified=true and last_verified=YYYY-MM-DD per scheme.",
+  "topics": [
+    {
+      "id": "students",
+      "icon": "graduation-cap",
+      "name": {
+        "en": "Students & youth",
+        "hi": "छात्र और युवा"
+      },
+      "description": {
+        "en": "Scholarships, internships, apprenticeships and education loans.",
+        "hi": "छात्रवृत्ति, इंटर्नशिप, अप्रेंटिसशिप और शिक्षा ऋण।"
+      }
+    },
+    {
+      "id": "jobs",
+      "icon": "briefcase",
+      "name": {
+        "en": "Jobs & skills",
+        "hi": "रोज़गार और कौशल"
+      },
+      "description": {
+        "en": "Paid internships, apprenticeships, free skill training and worker pensions.",
+        "hi": "पेड इंटर्नशिप, अप्रेंटिसशिप, मुफ़्त कौशल प्रशिक्षण और श्रमिक पेंशन।"
+      }
+    },
+    {
+      "id": "business",
+      "icon": "store",
+      "name": {
+        "en": "Business & startups",
+        "hi": "व्यवसाय और स्टार्टअप"
+      },
+      "description": {
+        "en": "Loans, subsidies and seed funding to start or grow a business.",
+        "hi": "व्यवसाय शुरू करने या बढ़ाने के लिए ऋण, सब्सिडी और सीड फ़ंडिंग।"
+      }
+    },
+    {
+      "id": "farmers",
+      "icon": "wheat",
+      "name": {
+        "en": "Farmers",
+        "hi": "किसान"
+      },
+      "description": {
+        "en": "Income support and pension for farming families.",
+        "hi": "किसान परिवारों के लिए आय सहायता और पेंशन।"
+      }
+    },
+    {
+      "id": "women",
+      "icon": "heart",
+      "name": {
+        "en": "Women & girls",
+        "hi": "महिलाएँ और बेटियाँ"
+      },
+      "description": {
+        "en": "Maternity support, savings for daughters, LPG connections and business loans.",
+        "hi": "मातृत्व सहायता, बेटियों के लिए बचत, एलपीजी कनेक्शन और व्यवसाय ऋण।"
+      }
+    },
+    {
+      "id": "seniors",
+      "icon": "hand-heart",
+      "name": {
+        "en": "Senior citizens",
+        "hi": "वरिष्ठ नागरिक"
+      },
+      "description": {
+        "en": "Old age pension and free hospital cover.",
+        "hi": "वृद्धावस्था पेंशन और मुफ़्त अस्पताल इलाज।"
+      }
+    },
+    {
+      "id": "health",
+      "icon": "heart-pulse",
+      "name": {
+        "en": "Health & insurance",
+        "hi": "स्वास्थ्य और बीमा"
+      },
+      "description": {
+        "en": "Hospital cover, maternity support and low-cost life and accident insurance.",
+        "hi": "अस्पताल इलाज, मातृत्व सहायता और कम कीमत में जीवन व दुर्घटना बीमा।"
+      }
+    },
+    {
+      "id": "housing",
+      "icon": "house",
+      "name": {
+        "en": "Housing & home",
+        "hi": "आवास और घर"
+      },
+      "description": {
+        "en": "Help to build or buy a house, and LPG connections.",
+        "hi": "घर बनाने या खरीदने में मदद, और एलपीजी कनेक्शन।"
+      }
+    },
+    {
+      "id": "pension",
+      "icon": "piggy-bank",
+      "name": {
+        "en": "Pension & savings",
+        "hi": "पेंशन और बचत"
+      },
+      "description": {
+        "en": "Guaranteed pensions and small-savings schemes.",
+        "hi": "गारंटीड पेंशन और छोटी बचत योजनाएँ।"
+      }
+    }
+  ],
+  "schemes": [
+    {
+      "id": "pm_kisan",
+      "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+      "name_hi": "पीएम-किसान (प्रधानमंत्री किसान सम्मान निधि)",
+      "level": "central",
+      "ministry": "Ministry of Agriculture & Farmers Welfare",
+      "ministry_hi": "कृषि एवं किसान कल्याण मंत्रालय",
+      "benefit": {
+        "en": "₹6,000 per year paid directly into the bank account in three instalments of ₹2,000.",
+        "hi": "हर साल ₹6,000, ₹2,000 की तीन किस्तों में सीधे बैंक खाते में।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Land ownership record (khatauni)",
+          "hi": "ज़मीन के कागज़ (खतौनी)"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "source_url": "https://pmkisan.gov.in/",
+      "rules": [
+        {
+          "id": "pmk_farmer",
+          "field": "is_farmer",
+          "op": "eq",
+          "value": true,
+          "description": "Must belong to a farmer family",
+          "description_hi": "किसान परिवार से होना चाहिए",
+          "clause": "Eligibility: landholding farmer families"
+        },
+        {
+          "id": "pmk_land",
+          "field": "owns_cultivable_land",
+          "op": "eq",
+          "value": true,
+          "description": "Family must own cultivable land in its name",
+          "description_hi": "परिवार के नाम पर खेती योग्य ज़मीन होनी चाहिए",
+          "clause": "Eligibility: cultivable land recorded in the family's name"
+        },
+        {
+          "id": "pmk_no_itr",
+          "field": "is_income_tax_payer",
+          "op": "eq",
+          "value": false,
+          "description": "No family member should have paid income tax in the last assessment year",
+          "description_hi": "पिछले कर-निर्धारण वर्ष में परिवार में किसी ने आयकर न भरा हो",
+          "clause": "Exclusion criteria: income tax payers"
+        },
+        {
+          "id": "pmk_no_govt",
+          "field": "is_govt_employee",
+          "op": "eq",
+          "value": false,
+          "description": "Must not be a government employee (exclusion category)",
+          "description_hi": "सरकारी कर्मचारी नहीं होना चाहिए (बहिष्करण श्रेणी)",
+          "clause": "Exclusion criteria: serving or retired government employees"
+        }
+      ],
+      "verified": false,
+      "last_verified": null,
+      "topics": [
+        "farmers"
+      ],
+      "kind": "income_support"
+    },
+    {
+      "id": "ignoaps",
+      "name": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)",
+      "name_hi": "इंदिरा गांधी राष्ट्रीय वृद्धावस्था पेंशन योजना",
+      "level": "central",
+      "ministry": "Ministry of Rural Development (NSAP)",
+      "ministry_hi": "ग्रामीण विकास मंत्रालय (NSAP)",
+      "benefit": {
+        "en": "Monthly pension: ₹200 central share for ages 60–79 and ₹500 for 80+; many states add their own top-up.",
+        "hi": "मासिक पेंशन: 60–79 वर्ष के लिए ₹200 और 80+ के लिए ₹500 केंद्रीय हिस्सा; कई राज्य अपनी ओर से राशि जोड़ते हैं।"
+      },
+      "documents": [
+        {
+          "en": "Age proof (birth certificate, school certificate or voter ID)",
+          "hi": "उम्र का प्रमाण (जन्म प्रमाणपत्र, स्कूल प्रमाणपत्र या वोटर आईडी)"
+        },
+        {
+          "en": "BPL card",
+          "hi": "बीपीएल कार्ड"
+        },
+        {
+          "en": "Bank or post office passbook",
+          "hi": "बैंक या डाकघर की पासबुक"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        }
+      ],
+      "source_url": "https://nsap.nic.in/",
+      "rules": [
+        {
+          "id": "ign_age",
+          "field": "age",
+          "op": "gte",
+          "value": 60,
+          "description": "Must be 60 years or older",
+          "description_hi": "उम्र 60 वर्ष या उससे अधिक होनी चाहिए",
+          "clause": "Eligibility: age 60 years and above"
+        },
+        {
+          "id": "ign_bpl",
+          "field": "is_bpl",
+          "op": "eq",
+          "value": true,
+          "description": "Must belong to a BPL (below poverty line) household",
+          "description_hi": "बीपीएल (गरीबी रेखा से नीचे) परिवार से होना चाहिए",
+          "clause": "Eligibility: household below the poverty line"
+        }
+      ],
+      "verified": false,
+      "last_verified": null,
+      "topics": [
+        "seniors",
+        "pension"
+      ],
+      "kind": "pension"
+    },
+    {
+      "id": "pm_jay",
+      "name": "Ayushman Bharat PM-JAY",
+      "name_hi": "आयुष्मान भारत प्रधानमंत्री जन आरोग्य योजना",
+      "level": "central",
+      "ministry": "Ministry of Health & Family Welfare (National Health Authority)",
+      "ministry_hi": "स्वास्थ्य एवं परिवार कल्याण मंत्रालय (राष्ट्रीय स्वास्थ्य प्राधिकरण)",
+      "benefit": {
+        "en": "Health cover up to ₹5 lakh per family per year for hospital treatment at empanelled hospitals.",
+        "hi": "सूचीबद्ध अस्पतालों में इलाज के लिए प्रति परिवार प्रति वर्ष ₹5 लाख तक का स्वास्थ्य कवर।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Ration card",
+          "hi": "राशन कार्ड"
+        },
+        {
+          "en": "Age proof (for the 70+ route)",
+          "hi": "उम्र का प्रमाण (70+ वाले रास्ते के लिए)"
+        }
+      ],
+      "source_url": "https://pmjay.gov.in/",
+      "rules": [
+        {
+          "id": "jay_bpl",
+          "field": "is_bpl",
+          "op": "eq",
+          "value": true,
+          "group": "basis",
+          "description": "Listed as a deprived household (BPL is used here as a stand-in for the SECC 2011 criteria)",
+          "description_hi": "वंचित परिवार की सूची में हों (यहाँ SECC 2011 मानदंड की जगह बीपीएल लिया गया है)",
+          "clause": "Eligibility: SECC 2011 deprivation criteria (simplified)"
+        },
+        {
+          "id": "jay_70plus",
+          "field": "age",
+          "op": "gte",
+          "value": 70,
+          "group": "basis",
+          "description": "Aged 70 or above (senior citizen expansion)",
+          "description_hi": "उम्र 70 वर्ष या उससे अधिक (वरिष्ठ नागरिक विस्तार)",
+          "clause": "Expansion: all citizens aged 70 and above, irrespective of income"
+        }
+      ],
+      "verified": false,
+      "last_verified": null,
+      "topics": [
+        "health",
+        "seniors"
+      ],
+      "kind": "health_cover"
+    },
+    {
+      "id": "pmuy",
+      "name": "Pradhan Mantri Ujjwala Yojana (PMUY)",
+      "name_hi": "प्रधानमंत्री उज्ज्वला योजना",
+      "level": "central",
+      "ministry": "Ministry of Petroleum & Natural Gas",
+      "ministry_hi": "पेट्रोलियम एवं प्राकृतिक गैस मंत्रालय",
+      "benefit": {
+        "en": "Deposit-free LPG connection in the name of an adult woman of a poor household; refill subsidy as notified by the government.",
+        "hi": "गरीब परिवार की वयस्क महिला के नाम पर बिना जमा राशि के एलपीजी कनेक्शन; रिफिल पर सब्सिडी सरकारी अधिसूचना के अनुसार।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Ration card",
+          "hi": "राशन कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        },
+        {
+          "en": "KYC form",
+          "hi": "केवाईसी फ़ॉर्म"
+        }
+      ],
+      "source_url": "https://pmuy.gov.in/",
+      "rules": [
+        {
+          "id": "uj_female",
+          "field": "gender",
+          "op": "eq",
+          "value": "female",
+          "description": "Applicant must be a woman",
+          "description_hi": "आवेदक महिला होनी चाहिए",
+          "clause": "Eligibility: connection is issued in the name of an adult woman"
+        },
+        {
+          "id": "uj_adult",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 years or older",
+          "description_hi": "उम्र 18 वर्ष या उससे अधिक होनी चाहिए",
+          "clause": "Eligibility: applicant must be an adult"
+        },
+        {
+          "id": "uj_bpl",
+          "field": "is_bpl",
+          "op": "eq",
+          "value": true,
+          "description": "Must belong to a poor (BPL) household",
+          "description_hi": "गरीब (बीपीएल) परिवार से होना चाहिए",
+          "clause": "Eligibility: poor household (simplified to BPL)"
+        },
+        {
+          "id": "uj_no_lpg",
+          "field": "has_lpg_connection",
+          "op": "eq",
+          "value": false,
+          "description": "Household must not already have an LPG connection",
+          "description_hi": "परिवार में पहले से एलपीजी कनेक्शन नहीं होना चाहिए",
+          "clause": "Eligibility: no existing LPG connection in the household"
+        }
+      ],
+      "verified": false,
+      "last_verified": null,
+      "topics": [
+        "women",
+        "housing"
+      ],
+      "kind": "household"
+    },
+    {
+      "id": "pms_sc",
+      "name": "Post Matric Scholarship for SC Students",
+      "name_hi": "अनुसूचित जाति के छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति",
+      "level": "central",
+      "ministry": "Ministry of Social Justice & Empowerment",
+      "ministry_hi": "सामाजिक न्याय एवं अधिकारिता मंत्रालय",
+      "benefit": {
+        "en": "Covers compulsory fees and a monthly maintenance allowance for studies after Class 10.",
+        "hi": "कक्षा 10 के बाद की पढ़ाई के लिए अनिवार्य फ़ीस और मासिक भरण-पोषण भत्ता।"
+      },
+      "documents": [
+        {
+          "en": "Caste certificate (SC)",
+          "hi": "जाति प्रमाणपत्र (अनुसूचित जाति)"
+        },
+        {
+          "en": "Income certificate",
+          "hi": "आय प्रमाणपत्र"
+        },
+        {
+          "en": "Previous year's marksheet",
+          "hi": "पिछले साल की मार्कशीट"
+        },
+        {
+          "en": "Fee receipt and admission proof",
+          "hi": "फ़ीस रसीद और प्रवेश का प्रमाण"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "source_url": "https://scholarships.gov.in/",
+      "rules": [
+        {
+          "id": "pms_caste",
+          "field": "category",
+          "op": "eq",
+          "value": "sc",
+          "description": "Must belong to a Scheduled Caste",
+          "description_hi": "अनुसूचित जाति से होना चाहिए",
+          "clause": "Eligibility: students belonging to Scheduled Castes"
+        },
+        {
+          "id": "pms_study",
+          "field": "is_post_matric_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying after Class 10 (Class 11 or above)",
+          "description_hi": "कक्षा 10 के बाद (कक्षा 11 या ऊपर) पढ़ाई कर रहे हों",
+          "clause": "Eligibility: post-matriculation or post-secondary course"
+        },
+        {
+          "id": "pms_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 250000,
+          "description": "Family income must be ₹2,50,000 a year or less",
+          "description_hi": "परिवार की सालाना आय ₹2,50,000 या उससे कम होनी चाहिए",
+          "clause": "Eligibility: parental income ceiling"
+        }
+      ],
+      "verified": false,
+      "last_verified": null,
+      "topics": [
+        "students"
+      ],
+      "kind": "scholarship"
+    },
+    {
+      "id": "apy",
+      "name": "Atal Pension Yojana (APY)",
+      "name_hi": "अटल पेंशन योजना",
+      "level": "central",
+      "ministry": "Ministry of Finance (PFRDA)",
+      "ministry_hi": "वित्त मंत्रालय (PFRDA)",
+      "benefit": {
+        "en": "Guaranteed pension of ₹1,000–₹5,000 a month from age 60, depending on your contribution.",
+        "hi": "60 वर्ष की उम्र से ₹1,000–₹5,000 प्रति माह की गारंटीड पेंशन, आपके अंशदान के अनुसार।"
+      },
+      "documents": [
+        {
+          "en": "Savings bank or post office account",
+          "hi": "बचत बैंक या डाकघर खाता"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Mobile number",
+          "hi": "मोबाइल नंबर"
+        }
+      ],
+      "source_url": "https://www.pfrda.org.in/",
+      "rules": [
+        {
+          "id": "apy_min_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be at least 18 years old",
+          "description_hi": "उम्र कम से कम 18 वर्ष होनी चाहिए",
+          "clause": "Eligibility: entry age 18 to 40 years"
+        },
+        {
+          "id": "apy_max_age",
+          "field": "age",
+          "op": "lte",
+          "value": 40,
+          "description": "Must be 40 or younger when joining",
+          "description_hi": "जुड़ते समय उम्र 40 वर्ष या उससे कम हो",
+          "clause": "Eligibility: entry age 18 to 40 years"
+        },
+        {
+          "id": "apy_bank",
+          "field": "has_bank_account",
+          "op": "eq",
+          "value": true,
+          "description": "Must have a savings bank or post office account",
+          "description_hi": "बचत बैंक या डाकघर खाता होना चाहिए",
+          "clause": "Eligibility: savings account holder"
+        },
+        {
+          "id": "apy_no_itr",
+          "field": "is_income_tax_payer",
+          "op": "eq",
+          "value": false,
+          "description": "Must not be an income tax payer",
+          "description_hi": "आयकरदाता नहीं होना चाहिए",
+          "clause": "Exclusion: income tax payers (from October 2022)"
+        }
+      ],
+      "verified": false,
+      "last_verified": null,
+      "topics": [
+        "pension"
+      ],
+      "kind": "pension"
+    },
+    {
+      "id": "ssy",
+      "name": "Sukanya Samriddhi Yojana (SSY)",
+      "name_hi": "सुकन्या समृद्धि योजना",
+      "level": "central",
+      "ministry": "Ministry of Finance (National Savings Institute)",
+      "ministry_hi": "वित्त मंत्रालय (राष्ट्रीय बचत संस्थान)",
+      "benefit": {
+        "en": "Small-savings account for a girl child with a government-set interest rate and tax benefits, opened by a parent or guardian.",
+        "hi": "बेटी के लिए छोटी बचत योजना का खाता, सरकार द्वारा तय ब्याज दर और कर लाभ के साथ; माता-पिता या अभिभावक खोलते हैं।"
+      },
+      "documents": [
+        {
+          "en": "Girl's birth certificate",
+          "hi": "बेटी का जन्म प्रमाणपत्र"
+        },
+        {
+          "en": "Parent's or guardian's ID and address proof",
+          "hi": "माता-पिता या अभिभावक का पहचान और पते का प्रमाण"
+        },
+        {
+          "en": "Passport-size photographs",
+          "hi": "पासपोर्ट साइज़ फ़ोटो"
+        }
+      ],
+      "source_url": "https://www.nsiindia.gov.in/",
+      "rules": [
+        {
+          "id": "ssy_daughter",
+          "field": "has_daughter_under_10",
+          "op": "eq",
+          "value": true,
+          "description": "Must have a daughter below 10 years of age",
+          "description_hi": "10 वर्ष से कम उम्र की बेटी होनी चाहिए",
+          "clause": "Eligibility: account opened for a girl child below 10 years"
+        }
+      ],
+      "verified": false,
+      "last_verified": null,
+      "topics": [
+        "women",
+        "pension"
+      ],
+      "kind": "savings"
+    },
+    {
+      "id": "csss",
+      "kind": "scholarship",
+      "topics": [
+        "students"
+      ],
+      "name": "Central Sector Scheme of Scholarships for College and University Students",
+      "name_hi": "कॉलेज और विश्वविद्यालय छात्रों के लिए केंद्रीय क्षेत्र छात्रवृत्ति योजना",
+      "ministry": "Ministry of Education (Department of Higher Education)",
+      "ministry_hi": "शिक्षा मंत्रालय (उच्च शिक्षा विभाग)",
+      "benefit": {
+        "en": "₹12,000 a year for the first three years of college and ₹20,000 a year after that (post-graduation and later years of professional courses).",
+        "hi": "कॉलेज के पहले तीन साल ₹12,000 प्रति वर्ष और उसके बाद (पोस्ट-ग्रेजुएशन और प्रोफ़ेशनल कोर्स के आगे के साल) ₹20,000 प्रति वर्ष।"
+      },
+      "documents": [
+        {
+          "en": "Marksheet of the last exam passed",
+          "hi": "पिछली पास की गई परीक्षा की मार्कशीट"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Admission proof or fee receipt from your institution",
+          "hi": "संस्थान का प्रवेश प्रमाण या फ़ीस रसीद"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Apply on the National Scholarship Portal. The course must be a regular (not distance) course at a recognised institution.",
+        "hi": "नेशनल स्कॉलरशिप पोर्टल पर आवेदन करें। कोर्स किसी मान्यता प्राप्त संस्थान में नियमित (दूरस्थ नहीं) होना चाहिए।"
+      },
+      "source_url": "https://scholarships.gov.in/",
+      "rules": [
+        {
+          "id": "csss_student",
+          "field": "is_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying now",
+          "description_hi": "अभी पढ़ाई कर रहे होने चाहिए",
+          "clause": "Eligibility: students in regular courses"
+        },
+        {
+          "id": "csss_level",
+          "field": "course_level",
+          "op": "in",
+          "value": [
+            "undergraduate",
+            "postgraduate"
+          ],
+          "description": "Studying for a college degree (graduation or post-graduation)",
+          "description_hi": "कॉलेज की डिग्री (ग्रेजुएशन या पोस्ट-ग्रेजुएशन) की पढ़ाई",
+          "clause": "Eligibility: degree courses at colleges and universities"
+        },
+        {
+          "id": "csss_merit",
+          "field": "class12_top20",
+          "op": "eq",
+          "value": true,
+          "description": "Above the 80th percentile (top 20%) of your Class 12 board",
+          "description_hi": "कक्षा 12 बोर्ड में 80वें पर्सेंटाइल (शीर्ष 20%) से ऊपर",
+          "clause": "Eligibility: above 80th percentile of successful candidates in the relevant stream"
+        },
+        {
+          "id": "csss_income",
+          "field": "annual_income",
+          "op": "lt",
+          "value": 450000,
+          "description": "Family income below ₹4,50,000 a year",
+          "description_hi": "परिवार की सालाना आय ₹4,50,000 से कम",
+          "clause": "Eligibility: gross parental income less than ₹4.5 lakh per annum"
+        },
+        {
+          "id": "csss_no_other",
+          "field": "gets_other_scholarship",
+          "op": "eq",
+          "value": false,
+          "description": "Not getting another scholarship",
+          "description_hi": "कोई दूसरी छात्रवृत्ति नहीं मिल रही हो",
+          "clause": "Eligibility: not availing any other scholarship"
+        }
+      ]
+    },
+    {
+      "id": "pms_st",
+      "kind": "scholarship",
+      "topics": [
+        "students"
+      ],
+      "name": "Post Matric Scholarship for ST Students",
+      "name_hi": "अनुसूचित जनजाति के छात्रों के लिए पोस्ट मैट्रिक छात्रवृत्ति",
+      "ministry": "Ministry of Tribal Affairs",
+      "ministry_hi": "जनजातीय कार्य मंत्रालय",
+      "benefit": {
+        "en": "Pays compulsory course fees plus a monthly maintenance allowance for studies after Class 10.",
+        "hi": "कक्षा 10 के बाद की पढ़ाई के लिए अनिवार्य फ़ीस और मासिक भरण-पोषण भत्ता।"
+      },
+      "documents": [
+        {
+          "en": "Caste certificate",
+          "hi": "जाति प्रमाणपत्र"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Marksheet of the last exam passed",
+          "hi": "पिछली पास की गई परीक्षा की मार्कशीट"
+        },
+        {
+          "en": "Admission proof or fee receipt from your institution",
+          "hi": "संस्थान का प्रवेश प्रमाण या फ़ीस रसीद"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "A rise in the income limit to ₹4.5 lakh was proposed in 2025; check the current limit on the National Scholarship Portal or your state portal.",
+        "hi": "2025 में आय सीमा ₹4.5 लाख करने का प्रस्ताव आया था; मौजूदा सीमा नेशनल स्कॉलरशिप पोर्टल या अपने राज्य के पोर्टल पर देखें।"
+      },
+      "source_url": "https://scholarships.gov.in/",
+      "rules": [
+        {
+          "id": "pmst_cat",
+          "field": "category",
+          "op": "eq",
+          "value": "st",
+          "description": "Must belong to a Scheduled Tribe",
+          "description_hi": "अनुसूचित जनजाति से होना चाहिए",
+          "clause": "Eligibility: Scheduled Tribe students"
+        },
+        {
+          "id": "pmst_level",
+          "field": "is_post_matric_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying after Class 10 (Class 11 or above)",
+          "description_hi": "कक्षा 10 के बाद की पढ़ाई (कक्षा 11 या उससे ऊपर) कर रहे हों",
+          "clause": "Eligibility: post-matriculation or post-secondary courses"
+        },
+        {
+          "id": "pmst_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 250000,
+          "description": "Family income must be ₹2,50,000 a year or less",
+          "description_hi": "परिवार की सालाना आय ₹2,50,000 या उससे कम",
+          "clause": "Eligibility: parental income from all sources up to ₹2.5 lakh per annum"
+        }
+      ]
+    },
+    {
+      "id": "pm_yasasvi_post",
+      "kind": "scholarship",
+      "topics": [
+        "students"
+      ],
+      "name": "PM YASASVI Post-Matric Scholarship for OBC, EBC and DNT Students",
+      "name_hi": "ओबीसी, ईबीसी और डीएनटी छात्रों के लिए पीएम यशस्वी पोस्ट-मैट्रिक छात्रवृत्ति",
+      "ministry": "Ministry of Social Justice & Empowerment",
+      "ministry_hi": "सामाजिक न्याय एवं अधिकारिता मंत्रालय",
+      "benefit": {
+        "en": "Pays fees and a maintenance allowance for studies after Class 10; the amount depends on the course and your state.",
+        "hi": "कक्षा 10 के बाद की पढ़ाई के लिए फ़ीस और भरण-पोषण भत्ता; राशि कोर्स और राज्य पर निर्भर करती है।"
+      },
+      "documents": [
+        {
+          "en": "Caste certificate",
+          "hi": "जाति प्रमाणपत्र"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Marksheet of the last exam passed",
+          "hi": "पिछली पास की गई परीक्षा की मार्कशीट"
+        },
+        {
+          "en": "Admission proof or fee receipt from your institution",
+          "hi": "संस्थान का प्रवेश प्रमाण या फ़ीस रसीद"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "EBC and DNT students are also covered, but we only check OBC here. You apply through your state's scholarship portal or the National Scholarship Portal.",
+        "hi": "ईबीसी और डीएनटी छात्र भी इसके दायरे में हैं, लेकिन यहाँ हम सिर्फ़ ओबीसी जाँचते हैं। आवेदन राज्य के छात्रवृत्ति पोर्टल या नेशनल स्कॉलरशिप पोर्टल से होता है।"
+      },
+      "source_url": "https://www.myscheme.gov.in/schemes/pm-yasasvipmsobcebcdnts",
+      "rules": [
+        {
+          "id": "yas_cat",
+          "field": "category",
+          "op": "eq",
+          "value": "obc",
+          "description": "Must belong to OBC",
+          "description_hi": "अन्य पिछड़ा वर्ग (OBC) से होना चाहिए",
+          "clause": "Eligibility: OBC, EBC and DNT students"
+        },
+        {
+          "id": "yas_level",
+          "field": "is_post_matric_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying after Class 10 (Class 11 or above)",
+          "description_hi": "कक्षा 10 के बाद की पढ़ाई (कक्षा 11 या उससे ऊपर) कर रहे हों",
+          "clause": "Eligibility: post-matriculation courses"
+        },
+        {
+          "id": "yas_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 250000,
+          "description": "Family income must be ₹2,50,000 a year or less",
+          "description_hi": "परिवार की सालाना आय ₹2,50,000 या उससे कम",
+          "clause": "Eligibility: parental income up to ₹2.5 lakh per annum"
+        }
+      ]
+    },
+    {
+      "id": "pms_minority",
+      "kind": "scholarship",
+      "topics": [
+        "students"
+      ],
+      "name": "Post Matric Scholarship for Minorities",
+      "name_hi": "अल्पसंख्यकों के लिए पोस्ट मैट्रिक छात्रवृत्ति",
+      "ministry": "Ministry of Minority Affairs",
+      "ministry_hi": "अल्पसंख्यक कार्य मंत्रालय",
+      "benefit": {
+        "en": "Admission and tuition fees (up to ₹10,000 a year) plus a maintenance allowance, from Class 11 up to PhD.",
+        "hi": "कक्षा 11 से पीएचडी तक प्रवेश और ट्यूशन फ़ीस (₹10,000 प्रति वर्ष तक) और भरण-पोषण भत्ता।"
+      },
+      "documents": [
+        {
+          "en": "Community self-declaration",
+          "hi": "समुदाय का स्व-घोषणा पत्र"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Marksheet of the last exam passed",
+          "hi": "पिछली पास की गई परीक्षा की मार्कशीट"
+        },
+        {
+          "en": "Admission proof or fee receipt from your institution",
+          "hi": "संस्थान का प्रवेश प्रमाण या फ़ीस रसीद"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "You also need at least 50% marks in your last exam. 30% of scholarships are kept for girls.",
+        "hi": "पिछली परीक्षा में कम से कम 50% अंक भी चाहिए। 30% छात्रवृत्तियाँ छात्राओं के लिए रखी जाती हैं।"
+      },
+      "source_url": "https://scholarships.gov.in/",
+      "rules": [
+        {
+          "id": "pmm_min",
+          "field": "is_minority",
+          "op": "eq",
+          "value": true,
+          "description": "Must belong to a minority community (Muslim, Christian, Sikh, Buddhist, Jain or Parsi)",
+          "description_hi": "अल्पसंख्यक समुदाय (मुस्लिम, ईसाई, सिख, बौद्ध, जैन या पारसी) से होना चाहिए",
+          "clause": "Eligibility: students of notified minority communities"
+        },
+        {
+          "id": "pmm_level",
+          "field": "is_post_matric_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying after Class 10 (Class 11 or above)",
+          "description_hi": "कक्षा 10 के बाद की पढ़ाई (कक्षा 11 या उससे ऊपर) कर रहे हों",
+          "clause": "Eligibility: Class XI to PhD"
+        },
+        {
+          "id": "pmm_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 200000,
+          "description": "Family income must be ₹2,00,000 a year or less",
+          "description_hi": "परिवार की सालाना आय ₹2,00,000 या उससे कम",
+          "clause": "Eligibility: annual income of parents/guardian up to ₹2 lakh"
+        }
+      ]
+    },
+    {
+      "id": "aicte_pragati",
+      "kind": "scholarship",
+      "topics": [
+        "students",
+        "women"
+      ],
+      "name": "AICTE Pragati Scholarship for Girls",
+      "name_hi": "छात्राओं के लिए एआईसीटीई प्रगति छात्रवृत्ति",
+      "ministry": "Ministry of Education (AICTE)",
+      "ministry_hi": "शिक्षा मंत्रालय (एआईसीटीई)",
+      "benefit": {
+        "en": "₹50,000 a year towards fees and study costs, for the length of a technical diploma or degree.",
+        "hi": "तकनीकी डिप्लोमा या डिग्री की पूरी अवधि में फ़ीस और पढ़ाई के ख़र्च के लिए ₹50,000 प्रति वर्ष।"
+      },
+      "documents": [
+        {
+          "en": "Marksheet of the last exam passed",
+          "hi": "पिछली पास की गई परीक्षा की मार्कशीट"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Admission proof or fee receipt from your institution",
+          "hi": "संस्थान का प्रवेश प्रमाण या फ़ीस रसीद"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "For first-year students (or second year through lateral entry) at AICTE-approved institutions; up to two girls per family. Confirm the current income limit on the National Scholarship Portal.",
+        "hi": "एआईसीटीई से मान्य संस्थानों में पहले वर्ष (या लेटरल एंट्री से दूसरे वर्ष) की छात्राओं के लिए; एक परिवार की अधिकतम दो बेटियाँ। मौजूदा आय सीमा नेशनल स्कॉलरशिप पोर्टल पर पक्की करें।"
+      },
+      "source_url": "https://www.aicte.gov.in/",
+      "rules": [
+        {
+          "id": "prg_gender",
+          "field": "gender",
+          "op": "eq",
+          "value": "female",
+          "description": "Must be a girl student",
+          "description_hi": "छात्रा होनी चाहिए",
+          "clause": "Eligibility: girl students"
+        },
+        {
+          "id": "prg_student",
+          "field": "is_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying now",
+          "description_hi": "अभी पढ़ाई कर रही होनी चाहिए",
+          "clause": "Eligibility: admitted students"
+        },
+        {
+          "id": "prg_level",
+          "field": "course_level",
+          "op": "in",
+          "value": [
+            "diploma",
+            "undergraduate"
+          ],
+          "description": "Studying a diploma or a degree",
+          "description_hi": "डिप्लोमा या डिग्री की पढ़ाई",
+          "clause": "Eligibility: first year of degree/diploma (or second year via lateral entry)"
+        },
+        {
+          "id": "prg_tech",
+          "field": "is_technical_course",
+          "op": "eq",
+          "value": true,
+          "description": "The course must be AICTE-approved (technical)",
+          "description_hi": "कोर्स एआईसीटीई से मान्य (तकनीकी) होना चाहिए",
+          "clause": "Eligibility: AICTE-approved institutions"
+        },
+        {
+          "id": "prg_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 800000,
+          "description": "Family income up to ₹8,00,000 a year",
+          "description_hi": "परिवार की सालाना आय ₹8,00,000 तक",
+          "clause": "Eligibility: family income ceiling"
+        }
+      ]
+    },
+    {
+      "id": "aicte_saksham",
+      "kind": "scholarship",
+      "topics": [
+        "students"
+      ],
+      "name": "AICTE Saksham Scholarship for Students with Disabilities",
+      "name_hi": "दिव्यांग छात्रों के लिए एआईसीटीई सक्षम छात्रवृत्ति",
+      "ministry": "Ministry of Education (AICTE)",
+      "ministry_hi": "शिक्षा मंत्रालय (एआईसीटीई)",
+      "benefit": {
+        "en": "₹50,000 a year towards fees and study costs, for the length of a technical diploma or degree.",
+        "hi": "तकनीकी डिप्लोमा या डिग्री की पूरी अवधि में फ़ीस और पढ़ाई के ख़र्च के लिए ₹50,000 प्रति वर्ष।"
+      },
+      "documents": [
+        {
+          "en": "Disability certificate (40% or more)",
+          "hi": "दिव्यांगता प्रमाणपत्र (40% या अधिक)"
+        },
+        {
+          "en": "Marksheet of the last exam passed",
+          "hi": "पिछली पास की गई परीक्षा की मार्कशीट"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Admission proof or fee receipt from your institution",
+          "hi": "संस्थान का प्रवेश प्रमाण या फ़ीस रसीद"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "For first-year students (or second year through lateral entry) at AICTE-approved institutions. Confirm the current income limit on the National Scholarship Portal.",
+        "hi": "एआईसीटीई से मान्य संस्थानों में पहले वर्ष (या लेटरल एंट्री से दूसरे वर्ष) के छात्रों के लिए। मौजूदा आय सीमा नेशनल स्कॉलरशिप पोर्टल पर पक्की करें।"
+      },
+      "source_url": "https://www.aicte.gov.in/",
+      "rules": [
+        {
+          "id": "skm_dis",
+          "field": "has_disability",
+          "op": "eq",
+          "value": true,
+          "description": "Must have a certified disability of 40% or more",
+          "description_hi": "40% या उससे अधिक की प्रमाणित दिव्यांगता होनी चाहिए",
+          "clause": "Eligibility: disability of not less than 40%"
+        },
+        {
+          "id": "skm_student",
+          "field": "is_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying now",
+          "description_hi": "अभी पढ़ाई कर रहे होने चाहिए",
+          "clause": "Eligibility: admitted students"
+        },
+        {
+          "id": "skm_level",
+          "field": "course_level",
+          "op": "in",
+          "value": [
+            "diploma",
+            "undergraduate"
+          ],
+          "description": "Studying a diploma or a degree",
+          "description_hi": "डिप्लोमा या डिग्री की पढ़ाई",
+          "clause": "Eligibility: first year of degree/diploma (or second year via lateral entry)"
+        },
+        {
+          "id": "skm_tech",
+          "field": "is_technical_course",
+          "op": "eq",
+          "value": true,
+          "description": "The course must be AICTE-approved (technical)",
+          "description_hi": "कोर्स एआईसीटीई से मान्य (तकनीकी) होना चाहिए",
+          "clause": "Eligibility: AICTE-approved institutions"
+        },
+        {
+          "id": "skm_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 800000,
+          "description": "Family income up to ₹8,00,000 a year",
+          "description_hi": "परिवार की सालाना आय ₹8,00,000 तक",
+          "clause": "Eligibility: family income ceiling"
+        }
+      ]
+    },
+    {
+      "id": "pm_vidyalaxmi",
+      "kind": "education_loan",
+      "topics": [
+        "students"
+      ],
+      "name": "PM Vidyalaxmi Education Loan Scheme",
+      "name_hi": "पीएम विद्यालक्ष्मी शिक्षा ऋण योजना",
+      "ministry": "Ministry of Education (Department of Higher Education)",
+      "ministry_hi": "शिक्षा मंत्रालय (उच्च शिक्षा विभाग)",
+      "benefit": {
+        "en": "Education loan without collateral or guarantor for your full fees and costs. If family income is up to ₹8 lakh and you get no other scholarship, 3% interest subsidy on loans up to ₹10 lakh during the moratorium.",
+        "hi": "बिना गिरवी या गारंटर के पूरी फ़ीस और ख़र्च के लिए शिक्षा ऋण। परिवार की आय ₹8 लाख तक हो और कोई दूसरी छात्रवृत्ति न मिलती हो तो मोरेटोरियम के दौरान ₹10 लाख तक के ऋण पर 3% ब्याज सब्सिडी।"
+      },
+      "documents": [
+        {
+          "en": "Admission letter from the institution",
+          "hi": "संस्थान का प्रवेश पत्र"
+        },
+        {
+          "en": "Fee structure",
+          "hi": "फ़ीस का विवरण"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Only for merit admissions (not management quota) to about 860 notified top institutions: NIRF top-100, central government institutions and some state institutions.",
+        "hi": "सिर्फ़ लगभग 860 अधिसूचित शीर्ष संस्थानों (NIRF टॉप-100, केंद्र सरकार के संस्थान और कुछ राज्य संस्थान) में मेरिट से प्रवेश (मैनेजमेंट कोटा नहीं) के लिए।"
+      },
+      "source_url": "https://education.gov.in/sites/upload_files/mhrd/files/document-reports/PM_Vidyalaxmi_Scheme_Guidelines.pdf",
+      "rules": [
+        {
+          "id": "pvl_qhei",
+          "field": "admitted_to_qhei",
+          "op": "eq",
+          "value": true,
+          "description": "Admitted on merit to a notified top institution (QHEI)",
+          "description_hi": "किसी अधिसूचित शीर्ष संस्थान (QHEI) में मेरिट से प्रवेश",
+          "clause": "Eligibility: students admitted to Quality Higher Education Institutions"
+        }
+      ]
+    },
+    {
+      "id": "csis",
+      "kind": "education_loan",
+      "topics": [
+        "students"
+      ],
+      "name": "Central Sector Interest Subsidy on Education Loans (CSIS)",
+      "name_hi": "शिक्षा ऋण पर केंद्रीय क्षेत्र ब्याज सब्सिडी (CSIS)",
+      "ministry": "Ministry of Education (Department of Higher Education)",
+      "ministry_hi": "शिक्षा मंत्रालय (उच्च शिक्षा विभाग)",
+      "benefit": {
+        "en": "The government pays the full interest on your education loan during the course and the moratorium period after it.",
+        "hi": "कोर्स के दौरान और उसके बाद मोरेटोरियम अवधि में शिक्षा ऋण का पूरा ब्याज सरकार भरती है।"
+      },
+      "documents": [
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Admission proof or fee receipt from your institution",
+          "hi": "संस्थान का प्रवेश प्रमाण या फ़ीस रसीद"
+        },
+        {
+          "en": "Education loan sanction letter",
+          "hi": "शिक्षा ऋण स्वीकृति पत्र"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        }
+      ],
+      "notes": {
+        "en": "For technical and professional courses in India at recognised institutions. Banks quote a loan cap of ₹7.5 lakh or ₹10 lakh for the subsidy; ask your bank.",
+        "hi": "भारत में मान्यता प्राप्त संस्थानों के तकनीकी और प्रोफ़ेशनल कोर्स के लिए। सब्सिडी के लिए बैंक ₹7.5 लाख या ₹10 लाख तक के ऋण की सीमा बताते हैं; अपने बैंक से पूछें।"
+      },
+      "source_url": "https://www.jansamarth.in/",
+      "rules": [
+        {
+          "id": "csis_student",
+          "field": "is_student",
+          "op": "eq",
+          "value": true,
+          "description": "Must be studying now",
+          "description_hi": "अभी पढ़ाई कर रहे होने चाहिए",
+          "clause": "Eligibility: students with an education loan"
+        },
+        {
+          "id": "csis_tech",
+          "field": "is_technical_course",
+          "op": "eq",
+          "value": true,
+          "description": "Studying a technical or professional course",
+          "description_hi": "तकनीकी या प्रोफ़ेशनल कोर्स की पढ़ाई",
+          "clause": "Eligibility: technical/professional courses in India"
+        },
+        {
+          "id": "csis_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 450000,
+          "description": "Family income up to ₹4,50,000 a year",
+          "description_hi": "परिवार की सालाना आय ₹4,50,000 तक",
+          "clause": "Eligibility: annual family income up to ₹4.5 lakh"
+        }
+      ]
+    },
+    {
+      "id": "pm_internship",
+      "kind": "internship",
+      "topics": [
+        "students",
+        "jobs"
+      ],
+      "name": "PM Internship Scheme",
+      "name_hi": "पीएम इंटर्नशिप योजना",
+      "ministry": "Ministry of Corporate Affairs",
+      "ministry_hi": "कॉर्पोरेट कार्य मंत्रालय",
+      "benefit": {
+        "en": "A paid internship in a top company: at least ₹9,000 a month, plus a one-time grant of ₹6,000.",
+        "hi": "किसी बड़ी कंपनी में पेड इंटर्नशिप: कम से कम ₹9,000 प्रति माह, और ₹6,000 का एकमुश्त अनुदान।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Marksheet of the last exam passed",
+          "hi": "पिछली पास की गई परीक्षा की मार्कशीट"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        },
+        {
+          "en": "Passport-size photograph",
+          "hi": "पासपोर्ट साइज़ फ़ोटो"
+        },
+        {
+          "en": "NOC from your college (final-year students)",
+          "hi": "कॉलेज से एनओसी (अंतिम वर्ष के छात्रों के लिए)"
+        }
+      ],
+      "notes": {
+        "en": "There is also a family income limit, and graduates of IITs, IIMs and similar institutes or holders of CA, MBBS, MBA-type qualifications are excluded. Confirm current criteria on the portal.",
+        "hi": "परिवार की आय की सीमा भी है, और IIT, IIM जैसे संस्थानों के स्नातक या CA, MBBS, MBA जैसी योग्यता वाले बाहर हैं। मौजूदा शर्तें पोर्टल पर पक्की करें।"
+      },
+      "source_url": "https://pminternship.mca.gov.in/",
+      "rules": [
+        {
+          "id": "pmi_min_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: age 18 to 25 years (revised April 2026)"
+        },
+        {
+          "id": "pmi_max_age",
+          "field": "age",
+          "op": "lte",
+          "value": 25,
+          "description": "Must be 25 or younger",
+          "description_hi": "उम्र 25 वर्ष या कम होनी चाहिए",
+          "clause": "Eligibility: age 18 to 25 years (revised April 2026)"
+        },
+        {
+          "id": "pmi_qual",
+          "field": "highest_qualification",
+          "op": "in",
+          "value": [
+            "class_10",
+            "class_12",
+            "iti",
+            "diploma",
+            "graduate",
+            "postgraduate"
+          ],
+          "description": "Must have passed at least Class 10",
+          "description_hi": "कम से कम कक्षा 10 पास होना चाहिए",
+          "clause": "Eligibility: minimum Class X pass"
+        },
+        {
+          "id": "pmi_job",
+          "field": "is_employed_full_time",
+          "op": "eq",
+          "value": false,
+          "description": "Must not have a full-time job",
+          "description_hi": "पूर्णकालिक नौकरी नहीं होनी चाहिए",
+          "clause": "Eligibility: not in full-time employment"
+        },
+        {
+          "id": "pmi_not_student",
+          "field": "is_student",
+          "op": "eq",
+          "value": false,
+          "description": "Not in full-time education",
+          "description_hi": "पूर्णकालिक पढ़ाई नहीं कर रहे हों",
+          "clause": "Eligibility: not in full-time education",
+          "group": "study"
+        },
+        {
+          "id": "pmi_final_year",
+          "field": "is_final_year",
+          "op": "eq",
+          "value": true,
+          "description": "Or in the final year of a graduate or postgraduate course (with a college NOC)",
+          "description_hi": "या ग्रेजुएशन/पोस्ट-ग्रेजुएशन के अंतिम वर्ष में हों (कॉलेज की एनओसी के साथ)",
+          "clause": "Expansion of April 2026: final-year UG/PG students with NOC",
+          "group": "study"
+        },
+        {
+          "id": "pmi_family_govt",
+          "field": "family_has_govt_employee",
+          "op": "eq",
+          "value": false,
+          "description": "No one in the family is a permanent government employee",
+          "description_hi": "परिवार में कोई स्थायी सरकारी कर्मचारी न हो",
+          "clause": "Exclusion: family member in permanent government employment"
+        }
+      ]
+    },
+    {
+      "id": "nats",
+      "kind": "apprenticeship",
+      "topics": [
+        "students",
+        "jobs"
+      ],
+      "name": "National Apprenticeship Training Scheme (NATS)",
+      "name_hi": "राष्ट्रीय अप्रेंटिसशिप प्रशिक्षण योजना (NATS)",
+      "ministry": "Ministry of Education",
+      "ministry_hi": "शिक्षा मंत्रालय",
+      "benefit": {
+        "en": "A paid apprenticeship of up to one year in industry, with a monthly stipend (about ₹9,000 for graduates and ₹8,000 for diploma holders, half paid by the government) and a certificate that counts as work experience.",
+        "hi": "उद्योग में एक साल तक की पेड अप्रेंटिसशिप, मासिक स्टाइपेंड (स्नातकों के लिए लगभग ₹9,000 और डिप्लोमा धारकों के लिए ₹8,000, आधा सरकार देती है) और अनुभव के रूप में मान्य प्रमाणपत्र।"
+      },
+      "documents": [
+        {
+          "en": "Degree or diploma certificate",
+          "hi": "डिग्री या डिप्लोमा प्रमाणपत्र"
+        },
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        },
+        {
+          "en": "Passport-size photograph",
+          "hi": "पासपोर्ट साइज़ फ़ोटो"
+        }
+      ],
+      "notes": {
+        "en": "Apply within 5 years of finishing your course, if you haven't done a NATS apprenticeship before. Stipend amounts were set for 2021–26; check the portal for current rates.",
+        "hi": "कोर्स पूरा करने के 5 साल के अंदर आवेदन करें, अगर पहले NATS अप्रेंटिसशिप नहीं की है। स्टाइपेंड की राशि 2021–26 के लिए तय थी; मौजूदा दरें पोर्टल पर देखें।"
+      },
+      "source_url": "https://nats.education.gov.in/",
+      "rules": [
+        {
+          "id": "nats_qual",
+          "field": "highest_qualification",
+          "op": "in",
+          "value": [
+            "diploma",
+            "graduate"
+          ],
+          "description": "Must hold a diploma or a graduate degree",
+          "description_hi": "डिप्लोमा या ग्रेजुएशन की डिग्री होनी चाहिए",
+          "clause": "Eligibility: graduates and diploma holders in any stream"
+        },
+        {
+          "id": "nats_job",
+          "field": "is_employed_full_time",
+          "op": "eq",
+          "value": false,
+          "description": "Must not have a full-time job",
+          "description_hi": "पूर्णकालिक नौकरी नहीं होनी चाहिए",
+          "clause": "Eligibility: freshers not in employment"
+        }
+      ]
+    },
+    {
+      "id": "pmkvy",
+      "kind": "skill_training",
+      "topics": [
+        "students",
+        "jobs"
+      ],
+      "name": "Pradhan Mantri Kaushal Vikas Yojana (PMKVY 4.0)",
+      "name_hi": "प्रधानमंत्री कौशल विकास योजना (PMKVY 4.0)",
+      "ministry": "Ministry of Skill Development & Entrepreneurship",
+      "ministry_hi": "कौशल विकास एवं उद्यमशीलता मंत्रालय",
+      "benefit": {
+        "en": "Free short-term skill training with a government-recognised (NSQF) certificate and help finding a job.",
+        "hi": "मुफ़्त अल्पकालिक कौशल प्रशिक्षण, सरकारी मान्यता वाला (NSQF) प्रमाणपत्र और नौकरी ढूँढने में मदद।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        },
+        {
+          "en": "Education certificates, if the course asks for them",
+          "hi": "कोर्स माँगे तो शिक्षा प्रमाणपत्र"
+        }
+      ],
+      "notes": {
+        "en": "Register on the Skill India Digital Hub. Each course has its own education requirements.",
+        "hi": "स्किल इंडिया डिजिटल हब पर रजिस्टर करें। हर कोर्स की अपनी शिक्षा संबंधी शर्तें होती हैं।"
+      },
+      "source_url": "https://www.skillindiadigital.gov.in/",
+      "rules": [
+        {
+          "id": "pmkvy_min_age",
+          "field": "age",
+          "op": "gte",
+          "value": 15,
+          "description": "Must be 15 or older",
+          "description_hi": "उम्र 15 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: age 15 to 45 years"
+        },
+        {
+          "id": "pmkvy_max_age",
+          "field": "age",
+          "op": "lte",
+          "value": 45,
+          "description": "Must be 45 or younger",
+          "description_hi": "उम्र 45 वर्ष या कम होनी चाहिए",
+          "clause": "Eligibility: age 15 to 45 years"
+        },
+        {
+          "id": "pmkvy_job",
+          "field": "is_employed_full_time",
+          "op": "eq",
+          "value": false,
+          "description": "Must not have a full-time job (school dropouts and unemployed youth)",
+          "description_hi": "पूर्णकालिक नौकरी नहीं होनी चाहिए (स्कूल छोड़ चुके और बेरोज़गार युवा)",
+          "clause": "Eligibility: school/college dropouts and unemployed youth"
+        }
+      ]
+    },
+    {
+      "id": "pm_sym",
+      "kind": "pension",
+      "topics": [
+        "jobs",
+        "pension"
+      ],
+      "name": "PM Shram Yogi Maandhan (PM-SYM)",
+      "name_hi": "प्रधानमंत्री श्रम योगी मानधन (PM-SYM)",
+      "ministry": "Ministry of Labour & Employment",
+      "ministry_hi": "श्रम एवं रोज़गार मंत्रालय",
+      "benefit": {
+        "en": "A pension of ₹3,000 a month from age 60. You pay ₹55–₹200 a month depending on your age and the government pays the same amount.",
+        "hi": "60 वर्ष की उम्र से ₹3,000 मासिक पेंशन। उम्र के हिसाब से आप ₹55–₹200 प्रति माह देते हैं और उतनी ही राशि सरकार देती है।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Savings bank account or Jan Dhan account",
+          "hi": "बचत बैंक खाता या जन धन खाता"
+        }
+      ],
+      "source_url": "https://maandhan.in/",
+      "rules": [
+        {
+          "id": "sym_worker",
+          "field": "is_unorganised_worker",
+          "op": "eq",
+          "value": true,
+          "description": "Must be an unorganised-sector worker (e.g. daily wage, domestic, construction, street vending)",
+          "description_hi": "असंगठित क्षेत्र के कामगार हों (जैसे दिहाड़ी, घरेलू, निर्माण, रेहड़ी-पटरी)",
+          "clause": "Eligibility: unorganised workers"
+        },
+        {
+          "id": "sym_min_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: entry age 18 to 40 years"
+        },
+        {
+          "id": "sym_max_age",
+          "field": "age",
+          "op": "lte",
+          "value": 40,
+          "description": "Must be 40 or younger when joining",
+          "description_hi": "जुड़ते समय उम्र 40 वर्ष या कम होनी चाहिए",
+          "clause": "Eligibility: entry age 18 to 40 years"
+        },
+        {
+          "id": "sym_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 180000,
+          "description": "Income of ₹15,000 a month (₹1,80,000 a year) or less",
+          "description_hi": "आय ₹15,000 प्रति माह (₹1,80,000 प्रति वर्ष) या कम",
+          "clause": "Eligibility: monthly income up to ₹15,000"
+        },
+        {
+          "id": "sym_no_cover",
+          "field": "has_epf_esic_nps",
+          "op": "eq",
+          "value": false,
+          "description": "Not covered by EPF, ESIC or NPS",
+          "description_hi": "EPF, ESIC या NPS के सदस्य न हों",
+          "clause": "Exclusion: members of EPFO/ESIC/NPS"
+        },
+        {
+          "id": "sym_no_itr",
+          "field": "is_income_tax_payer",
+          "op": "eq",
+          "value": false,
+          "description": "Must not be an income tax payer",
+          "description_hi": "आयकर दाता नहीं होने चाहिए",
+          "clause": "Exclusion: income tax payers"
+        }
+      ]
+    },
+    {
+      "id": "pmmy_mudra",
+      "kind": "business_loan",
+      "topics": [
+        "business",
+        "students"
+      ],
+      "name": "Pradhan Mantri MUDRA Yojana (PMMY)",
+      "name_hi": "प्रधानमंत्री मुद्रा योजना (PMMY)",
+      "ministry": "Ministry of Finance (Department of Financial Services)",
+      "ministry_hi": "वित्त मंत्रालय (वित्तीय सेवाएँ विभाग)",
+      "benefit": {
+        "en": "Business loans without collateral: Shishu up to ₹50,000, Kishor up to ₹5 lakh, Tarun up to ₹10 lakh, and Tarun Plus up to ₹20 lakh for those who repaid a Tarun loan.",
+        "hi": "बिना गिरवी के व्यवसाय ऋण: शिशु ₹50,000 तक, किशोर ₹5 लाख तक, तरुण ₹10 लाख तक, और तरुण ऋण चुका चुके लोगों के लिए तरुण प्लस ₹20 लाख तक।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Business plan or proof of business",
+          "hi": "व्यवसाय योजना या व्यवसाय का प्रमाण"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        },
+        {
+          "en": "Passport-size photograph",
+          "hi": "पासपोर्ट साइज़ फ़ोटो"
+        }
+      ],
+      "notes": {
+        "en": "For non-farm micro and small businesses in manufacturing, trading or services. Apply at any bank or on JanSamarth.",
+        "hi": "निर्माण, व्यापार या सेवा क्षेत्र के गैर-कृषि सूक्ष्म और छोटे व्यवसायों के लिए। किसी भी बैंक में या जनसमर्थ पोर्टल पर आवेदन करें।"
+      },
+      "source_url": "https://www.mudra.org.in/",
+      "rules": [
+        {
+          "id": "mudra_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: adult borrowers"
+        },
+        {
+          "id": "mudra_biz",
+          "field": "business_status",
+          "op": "in",
+          "value": [
+            "planning_new",
+            "running"
+          ],
+          "description": "Starting or running a small non-farm business",
+          "description_hi": "छोटा गैर-कृषि व्यवसाय शुरू कर रहे हों या चला रहे हों",
+          "clause": "Eligibility: non-corporate, non-farm micro and small enterprises"
+        }
+      ]
+    },
+    {
+      "id": "standup_india",
+      "kind": "business_loan",
+      "topics": [
+        "business",
+        "women"
+      ],
+      "name": "Stand-Up India",
+      "name_hi": "स्टैंड-अप इंडिया",
+      "ministry": "Ministry of Finance (Department of Financial Services)",
+      "ministry_hi": "वित्त मंत्रालय (वित्तीय सेवाएँ विभाग)",
+      "benefit": {
+        "en": "A bank loan between ₹10 lakh and ₹1 crore to set up a new manufacturing, services, trading or agri-allied business.",
+        "hi": "नया निर्माण, सेवा, व्यापार या कृषि-संबद्ध व्यवसाय शुरू करने के लिए ₹10 लाख से ₹1 करोड़ तक का बैंक ऋण।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Caste certificate",
+          "hi": "जाति प्रमाणपत्र"
+        },
+        {
+          "en": "Project report",
+          "hi": "प्रोजेक्ट रिपोर्ट"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Only for a first-time venture (greenfield). For companies or firms, an SC/ST or woman entrepreneur must hold at least 51%. Confirm with your bank that the scheme is still open.",
+        "hi": "सिर्फ़ पहले नए उद्यम (ग्रीनफ़ील्ड) के लिए। कंपनी या फ़र्म में SC/ST या महिला उद्यमी की कम से कम 51% हिस्सेदारी होनी चाहिए। अपने बैंक से पक्का करें कि योजना अभी चालू है।"
+      },
+      "source_url": "https://www.standupmitra.in/",
+      "rules": [
+        {
+          "id": "sui_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: entrepreneurs above 18 years"
+        },
+        {
+          "id": "sui_new",
+          "field": "business_status",
+          "op": "eq",
+          "value": "planning_new",
+          "description": "Setting up a new (first-time) business",
+          "description_hi": "नया (पहला) व्यवसाय शुरू कर रहे हों",
+          "clause": "Eligibility: greenfield enterprises only"
+        },
+        {
+          "id": "sui_woman",
+          "field": "gender",
+          "op": "eq",
+          "value": "female",
+          "description": "A woman entrepreneur",
+          "description_hi": "महिला उद्यमी",
+          "clause": "Eligibility: SC/ST and/or women entrepreneurs",
+          "group": "who"
+        },
+        {
+          "id": "sui_scst",
+          "field": "category",
+          "op": "in",
+          "value": [
+            "sc",
+            "st"
+          ],
+          "description": "Or an SC/ST entrepreneur",
+          "description_hi": "या SC/ST उद्यमी",
+          "clause": "Eligibility: SC/ST and/or women entrepreneurs",
+          "group": "who"
+        }
+      ]
+    },
+    {
+      "id": "pmegp",
+      "kind": "business_loan",
+      "topics": [
+        "business"
+      ],
+      "name": "Prime Minister's Employment Generation Programme (PMEGP)",
+      "name_hi": "प्रधानमंत्री रोज़गार सृजन कार्यक्रम (PMEGP)",
+      "ministry": "Ministry of Micro, Small & Medium Enterprises (KVIC)",
+      "ministry_hi": "सूक्ष्म, लघु एवं मध्यम उद्यम मंत्रालय (KVIC)",
+      "benefit": {
+        "en": "A subsidy of 15% to 35% of the project cost on a bank loan to set up a new micro-enterprise; rural and special-category applicants get the higher rates.",
+        "hi": "नया सूक्ष्म उद्यम लगाने के लिए बैंक ऋण पर प्रोजेक्ट लागत का 15% से 35% तक अनुदान; ग्रामीण और विशेष श्रेणी के आवेदकों को ज़्यादा दर मिलती है।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Project report",
+          "hi": "प्रोजेक्ट रिपोर्ट"
+        },
+        {
+          "en": "Education certificate",
+          "hi": "शिक्षा प्रमाणपत्र"
+        },
+        {
+          "en": "Caste certificate",
+          "hi": "जाति प्रमाणपत्र"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Existing units and units that already got another government subsidy can't apply. For projects above ₹10 lakh (manufacturing) or ₹5 lakh (services) you must have passed Class 8.",
+        "hi": "पहले से चल रही इकाइयाँ और किसी दूसरी सरकारी सब्सिडी वाली इकाइयाँ आवेदन नहीं कर सकतीं। ₹10 लाख (निर्माण) या ₹5 लाख (सेवा) से बड़े प्रोजेक्ट के लिए कक्षा 8 पास होना ज़रूरी है।"
+      },
+      "source_url": "https://www.kviconline.gov.in/pmegpeportal/",
+      "rules": [
+        {
+          "id": "pmegp_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: individuals above 18 years"
+        },
+        {
+          "id": "pmegp_new",
+          "field": "business_status",
+          "op": "eq",
+          "value": "planning_new",
+          "description": "Setting up a new business (existing units can't apply)",
+          "description_hi": "नया व्यवसाय शुरू कर रहे हों (चल रही इकाइयाँ नहीं)",
+          "clause": "Eligibility: new projects only"
+        }
+      ]
+    },
+    {
+      "id": "sisfs",
+      "kind": "startup_funding",
+      "topics": [
+        "business",
+        "students"
+      ],
+      "name": "Startup India Seed Fund Scheme (SISFS)",
+      "name_hi": "स्टार्टअप इंडिया सीड फ़ंड योजना (SISFS)",
+      "ministry": "Ministry of Commerce & Industry (DPIIT)",
+      "ministry_hi": "वाणिज्य एवं उद्योग मंत्रालय (DPIIT)",
+      "benefit": {
+        "en": "Up to ₹20 lakh as a grant for proof of concept, prototypes or product trials, and up to ₹50 lakh as debt for market entry, given through approved incubators.",
+        "hi": "प्रूफ़ ऑफ़ कॉन्सेप्ट, प्रोटोटाइप या प्रोडक्ट ट्रायल के लिए ₹20 लाख तक अनुदान, और बाज़ार में उतरने के लिए ₹50 लाख तक ऋण, मान्य इनक्यूबेटरों के ज़रिए।"
+      },
+      "documents": [
+        {
+          "en": "DPIIT recognition certificate",
+          "hi": "DPIIT मान्यता प्रमाणपत्र"
+        },
+        {
+          "en": "Certificate of incorporation",
+          "hi": "निगमन प्रमाणपत्र"
+        },
+        {
+          "en": "Pitch deck or business plan",
+          "hi": "पिच डेक या व्यवसाय योजना"
+        }
+      ],
+      "notes": {
+        "en": "Indian promoters must hold at least 51%, and the business must use technology in its product, service or model. Startups that already got more than ₹10 lakh from other government schemes can't apply. Check whether new applications are open.",
+        "hi": "भारतीय प्रमोटरों की कम से कम 51% हिस्सेदारी होनी चाहिए, और प्रोडक्ट, सेवा या मॉडल में तकनीक का उपयोग हो। जिन्हें दूसरी सरकारी योजनाओं से ₹10 लाख से ज़्यादा मिल चुका है वे आवेदन नहीं कर सकते। देखें कि नए आवेदन खुले हैं या नहीं।"
+      },
+      "source_url": "https://seedfund.startupindia.gov.in/",
+      "rules": [
+        {
+          "id": "sisfs_dpiit",
+          "field": "is_new_dpiit_startup",
+          "op": "eq",
+          "value": true,
+          "description": "A DPIIT-recognised startup incorporated less than 2 years ago",
+          "description_hi": "2 साल से कम पुराना, DPIIT से मान्यता प्राप्त स्टार्टअप",
+          "clause": "Eligibility: DPIIT-recognised startup, incorporated not more than 2 years ago"
+        }
+      ]
+    },
+    {
+      "id": "pm_svanidhi",
+      "kind": "business_loan",
+      "topics": [
+        "business"
+      ],
+      "name": "PM SVANidhi (loans for street vendors)",
+      "name_hi": "पीएम स्वनिधि (रेहड़ी-पटरी वालों के लिए ऋण)",
+      "ministry": "Ministry of Housing & Urban Affairs",
+      "ministry_hi": "आवासन एवं शहरी कार्य मंत्रालय",
+      "benefit": {
+        "en": "Working-capital loans without collateral in three steps: ₹15,000, then ₹25,000, then ₹50,000 after repaying on time, with interest subsidy and cashback on digital payments.",
+        "hi": "बिना गिरवी के तीन चरणों में कार्यशील पूँजी ऋण: ₹15,000, फिर ₹25,000, फिर समय पर चुकाने पर ₹50,000, साथ में ब्याज सब्सिडी और डिजिटल भुगतान पर कैशबैक।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Vending certificate or letter of recommendation from the urban local body",
+          "hi": "वेंडिंग प्रमाणपत्र या नगर निकाय का सिफ़ारिशी पत्र"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Extended until March 2030.",
+        "hi": "मार्च 2030 तक बढ़ाई गई है।"
+      },
+      "source_url": "https://pmsvanidhi.mohua.gov.in/",
+      "rules": [
+        {
+          "id": "svn_vendor",
+          "field": "is_street_vendor",
+          "op": "eq",
+          "value": true,
+          "description": "Must be a street vendor in a town or city",
+          "description_hi": "शहर या कस्बे में रेहड़ी-पटरी विक्रेता होने चाहिए",
+          "clause": "Eligibility: urban street vendors"
+        }
+      ]
+    },
+    {
+      "id": "pm_kmy",
+      "kind": "pension",
+      "topics": [
+        "farmers",
+        "pension"
+      ],
+      "name": "PM Kisan Maandhan Yojana (PM-KMY)",
+      "name_hi": "प्रधानमंत्री किसान मानधन योजना (PM-KMY)",
+      "ministry": "Ministry of Agriculture & Farmers Welfare",
+      "ministry_hi": "कृषि एवं किसान कल्याण मंत्रालय",
+      "benefit": {
+        "en": "A pension of ₹3,000 a month from age 60. You pay ₹55–₹200 a month depending on your age and the government pays the same amount.",
+        "hi": "60 वर्ष की उम्र से ₹3,000 मासिक पेंशन। उम्र के हिसाब से आप ₹55–₹200 प्रति माह देते हैं और उतनी ही राशि सरकार देती है।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Land records (khatauni)",
+          "hi": "ज़मीन के कागज़ (खतौनी)"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "source_url": "https://maandhan.in/",
+      "rules": [
+        {
+          "id": "kmy_farmer",
+          "field": "is_farmer",
+          "op": "eq",
+          "value": true,
+          "description": "Must belong to a farmer family",
+          "description_hi": "किसान परिवार से होना चाहिए",
+          "clause": "Eligibility: small and marginal farmers"
+        },
+        {
+          "id": "kmy_small",
+          "field": "is_small_marginal_farmer",
+          "op": "eq",
+          "value": true,
+          "description": "Farmland of 2 hectares (about 5 acres) or less",
+          "description_hi": "खेती की ज़मीन 2 हेक्टेयर (लगभग 5 एकड़) या कम",
+          "clause": "Eligibility: cultivable land up to 2 hectares"
+        },
+        {
+          "id": "kmy_min_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: entry age 18 to 40 years"
+        },
+        {
+          "id": "kmy_max_age",
+          "field": "age",
+          "op": "lte",
+          "value": 40,
+          "description": "Must be 40 or younger when joining",
+          "description_hi": "जुड़ते समय उम्र 40 वर्ष या कम होनी चाहिए",
+          "clause": "Eligibility: entry age 18 to 40 years"
+        },
+        {
+          "id": "kmy_no_cover",
+          "field": "has_epf_esic_nps",
+          "op": "eq",
+          "value": false,
+          "description": "Not covered by EPF, ESIC or NPS",
+          "description_hi": "EPF, ESIC या NPS के सदस्य न हों",
+          "clause": "Exclusion: farmers covered by NPS, ESIC, EPFO"
+        }
+      ]
+    },
+    {
+      "id": "pmmvy",
+      "kind": "maternity",
+      "topics": [
+        "women",
+        "health"
+      ],
+      "name": "Pradhan Mantri Matru Vandana Yojana (PMMVY)",
+      "name_hi": "प्रधानमंत्री मातृ वंदना योजना (PMMVY)",
+      "ministry": "Ministry of Women & Child Development",
+      "ministry_hi": "महिला एवं बाल विकास मंत्रालय",
+      "benefit": {
+        "en": "₹5,000 for the first child in two instalments, and ₹6,000 if the second child is a girl, paid into the bank account.",
+        "hi": "पहले बच्चे के लिए दो किस्तों में ₹5,000, और दूसरा बच्चा बेटी हो तो ₹6,000, सीधे बैंक खाते में।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Mother and Child Protection (MCP) card",
+          "hi": "मातृ एवं शिशु सुरक्षा (MCP) कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Usually for women from low-income or disadvantaged groups (for example SC/ST, BPL, PM-JAY card holders). Register at your Anganwadi centre within the time limits.",
+        "hi": "आमतौर पर कम आय या वंचित वर्ग की महिलाओं के लिए (जैसे SC/ST, बीपीएल, PM-JAY कार्ड धारक)। तय समय के अंदर अपने आंगनवाड़ी केंद्र पर पंजीकरण कराएँ।"
+      },
+      "source_url": "https://pmmvy.wcd.gov.in/",
+      "rules": [
+        {
+          "id": "pmmvy_woman",
+          "field": "gender",
+          "op": "eq",
+          "value": "female",
+          "description": "Applicant must be a woman",
+          "description_hi": "आवेदक महिला होनी चाहिए",
+          "clause": "Eligibility: pregnant women and lactating mothers"
+        },
+        {
+          "id": "pmmvy_preg",
+          "field": "is_pregnant_or_new_mother",
+          "op": "eq",
+          "value": true,
+          "description": "Pregnant, or gave birth recently",
+          "description_hi": "गर्भवती हों, या हाल ही में बच्चे को जन्म दिया हो",
+          "clause": "Eligibility: pregnant women and lactating mothers"
+        }
+      ]
+    },
+    {
+      "id": "pmjjby",
+      "kind": "insurance",
+      "topics": [
+        "health",
+        "pension"
+      ],
+      "name": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)",
+      "name_hi": "प्रधानमंत्री जीवन ज्योति बीमा योजना (PMJJBY)",
+      "ministry": "Ministry of Finance (Department of Financial Services)",
+      "ministry_hi": "वित्त मंत्रालय (वित्तीय सेवाएँ विभाग)",
+      "benefit": {
+        "en": "₹2 lakh life cover for death from any cause, for ₹436 a year auto-debited from your bank account.",
+        "hi": "किसी भी कारण से मृत्यु पर ₹2 लाख का जीवन बीमा, बैंक खाते से अपने-आप कटने वाले ₹436 सालाना में।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        },
+        {
+          "en": "Nominee details",
+          "hi": "नॉमिनी का विवरण"
+        }
+      ],
+      "notes": {
+        "en": "Join through one bank account only. If you join before 50 you can keep the cover until 55.",
+        "hi": "सिर्फ़ एक बैंक खाते से जुड़ सकते हैं। 50 से पहले जुड़ने पर 55 वर्ष तक बीमा जारी रख सकते हैं।"
+      },
+      "source_url": "https://jansuraksha.gov.in/",
+      "rules": [
+        {
+          "id": "jjby_min_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: age 18 to 50 years"
+        },
+        {
+          "id": "jjby_max_age",
+          "field": "age",
+          "op": "lte",
+          "value": 50,
+          "description": "Must be 50 or younger",
+          "description_hi": "उम्र 50 वर्ष या कम होनी चाहिए",
+          "clause": "Eligibility: age 18 to 50 years"
+        },
+        {
+          "id": "jjby_bank",
+          "field": "has_bank_account",
+          "op": "eq",
+          "value": true,
+          "description": "Must have a bank account",
+          "description_hi": "बैंक खाता होना चाहिए",
+          "clause": "Eligibility: savings bank or post office account holders"
+        }
+      ]
+    },
+    {
+      "id": "pmsby",
+      "kind": "insurance",
+      "topics": [
+        "health",
+        "pension"
+      ],
+      "name": "Pradhan Mantri Suraksha Bima Yojana (PMSBY)",
+      "name_hi": "प्रधानमंत्री सुरक्षा बीमा योजना (PMSBY)",
+      "ministry": "Ministry of Finance (Department of Financial Services)",
+      "ministry_hi": "वित्त मंत्रालय (वित्तीय सेवाएँ विभाग)",
+      "benefit": {
+        "en": "₹2 lakh accident cover for death or full disability (₹1 lakh for partial disability), for ₹20 a year.",
+        "hi": "दुर्घटना में मृत्यु या पूर्ण विकलांगता पर ₹2 लाख (आंशिक विकलांगता पर ₹1 लाख) का बीमा, सिर्फ़ ₹20 सालाना में।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        },
+        {
+          "en": "Nominee details",
+          "hi": "नॉमिनी का विवरण"
+        }
+      ],
+      "source_url": "https://jansuraksha.gov.in/",
+      "rules": [
+        {
+          "id": "sby_min_age",
+          "field": "age",
+          "op": "gte",
+          "value": 18,
+          "description": "Must be 18 or older",
+          "description_hi": "उम्र 18 वर्ष या अधिक होनी चाहिए",
+          "clause": "Eligibility: age 18 to 70 years"
+        },
+        {
+          "id": "sby_max_age",
+          "field": "age",
+          "op": "lte",
+          "value": 70,
+          "description": "Must be 70 or younger",
+          "description_hi": "उम्र 70 वर्ष या कम होनी चाहिए",
+          "clause": "Eligibility: age 18 to 70 years"
+        },
+        {
+          "id": "sby_bank",
+          "field": "has_bank_account",
+          "op": "eq",
+          "value": true,
+          "description": "Must have a bank account",
+          "description_hi": "बैंक खाता होना चाहिए",
+          "clause": "Eligibility: savings bank or post office account holders"
+        }
+      ]
+    },
+    {
+      "id": "pmay_u",
+      "kind": "housing",
+      "topics": [
+        "housing"
+      ],
+      "name": "Pradhan Mantri Awas Yojana – Urban 2.0",
+      "name_hi": "प्रधानमंत्री आवास योजना – शहरी 2.0",
+      "ministry": "Ministry of Housing & Urban Affairs",
+      "ministry_hi": "आवासन एवं शहरी कार्य मंत्रालय",
+      "benefit": {
+        "en": "Help to build, buy or rent a house in a town or city, for example up to ₹1.8 lakh interest subsidy on a home loan, or assistance to build on your own land.",
+        "hi": "शहर या कस्बे में घर बनाने, ख़रीदने या किराए पर लेने में मदद, जैसे होम लोन पर ₹1.8 लाख तक की ब्याज सब्सिडी, या अपनी ज़मीन पर घर बनाने में सहायता।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Family income certificate",
+          "hi": "परिवार का आय प्रमाणपत्र"
+        },
+        {
+          "en": "Affidavit that the family owns no pucca house",
+          "hi": "परिवार के पास पक्का मकान न होने का शपथ पत्र"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Income bands: EWS up to ₹3 lakh, LIG ₹3–6 lakh, MIG ₹6–9 lakh. The family is husband, wife and unmarried children.",
+        "hi": "आय वर्ग: EWS ₹3 लाख तक, LIG ₹3–6 लाख, MIG ₹6–9 लाख। परिवार में पति, पत्नी और अविवाहित बच्चे गिने जाते हैं।"
+      },
+      "source_url": "https://pmay-urban.gov.in/",
+      "rules": [
+        {
+          "id": "pmayu_urban",
+          "field": "lives_in_urban_area",
+          "op": "eq",
+          "value": true,
+          "description": "Lives in a town or city",
+          "description_hi": "शहर या कस्बे में रहते हों",
+          "clause": "Eligibility: urban areas"
+        },
+        {
+          "id": "pmayu_house",
+          "field": "owns_pucca_house",
+          "op": "eq",
+          "value": false,
+          "description": "The family must not own a pucca house anywhere in India",
+          "description_hi": "परिवार के पास भारत में कहीं भी पक्का मकान नहीं होना चाहिए",
+          "clause": "Eligibility: no pucca house anywhere in the country"
+        },
+        {
+          "id": "pmayu_income",
+          "field": "annual_income",
+          "op": "lte",
+          "value": 900000,
+          "description": "Family income up to ₹9,00,000 a year",
+          "description_hi": "परिवार की सालाना आय ₹9,00,000 तक",
+          "clause": "Eligibility: EWS/LIG/MIG up to ₹9 lakh"
+        }
+      ]
+    },
+    {
+      "id": "pmay_g",
+      "kind": "housing",
+      "topics": [
+        "housing"
+      ],
+      "name": "Pradhan Mantri Awas Yojana – Gramin",
+      "name_hi": "प्रधानमंत्री आवास योजना – ग्रामीण",
+      "ministry": "Ministry of Rural Development",
+      "ministry_hi": "ग्रामीण विकास मंत्रालय",
+      "benefit": {
+        "en": "₹1.2 lakh (₹1.3 lakh in hilly and difficult areas) to build a pucca house, plus wages under MGNREGA and toilet support.",
+        "hi": "पक्का मकान बनाने के लिए ₹1.2 लाख (पहाड़ी और दुर्गम क्षेत्रों में ₹1.3 लाख), साथ में मनरेगा मज़दूरी और शौचालय सहायता।"
+      },
+      "documents": [
+        {
+          "en": "Aadhaar card",
+          "hi": "आधार कार्ड"
+        },
+        {
+          "en": "Job card (MGNREGA)",
+          "hi": "जॉब कार्ड (मनरेगा)"
+        },
+        {
+          "en": "Bank account passbook",
+          "hi": "बैंक खाते की पासबुक"
+        }
+      ],
+      "notes": {
+        "en": "Families are picked from the Awaas+ survey list kept by the gram panchayat; ask your panchayat whether your family is on it.",
+        "hi": "परिवारों का चयन ग्राम पंचायत की आवास+ सर्वे सूची से होता है; अपनी पंचायत से पूछें कि आपका परिवार सूची में है या नहीं।"
+      },
+      "source_url": "https://pmayg.nic.in/",
+      "rules": [
+        {
+          "id": "pmayg_rural",
+          "field": "lives_in_urban_area",
+          "op": "eq",
+          "value": false,
+          "description": "Lives in a village (rural area)",
+          "description_hi": "गाँव (ग्रामीण क्षेत्र) में रहते हों",
+          "clause": "Eligibility: rural households"
+        },
+        {
+          "id": "pmayg_house",
+          "field": "owns_pucca_house",
+          "op": "eq",
+          "value": false,
+          "description": "The family must not own a pucca house",
+          "description_hi": "परिवार के पास पक्का मकान नहीं होना चाहिए",
+          "clause": "Eligibility: houseless or kutcha-house households"
+        }
+      ]
+    }
+  ]
+}
