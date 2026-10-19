@@ -110,6 +110,14 @@ export function verifyOtp(phone: string, code: string, lang: string): Promise<Me
   return request("/api/auth/otp/verify", { method: "POST", body: JSON.stringify({ phone, code, lang }) });
 }
 
+export function registerWithPassword(username: string, password: string, lang: string): Promise<Me> {
+  return request("/api/auth/register", { method: "POST", body: JSON.stringify({ username, password, lang }) });
+}
+
+export function loginWithPassword(username: string, password: string, lang: string): Promise<Me> {
+  return request("/api/auth/login", { method: "POST", body: JSON.stringify({ username, password, lang }) });
+}
+
 /** Resolves to null when not logged in. */
 export async function getMe(): Promise<Me | null> {
   try {

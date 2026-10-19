@@ -60,7 +60,7 @@ export function SearchDialog({ lang }: { lang: Lang }) {
       >
         <div className="rounded-3xl bg-paper p-3 shadow-pop sm:p-4">
           {session > 0 && (
-            <SearchBox key={session} lang={lang} size="lg" autoFocus onNavigate={() => dialogRef.current?.close()} />
+            <SearchBox key={session} lang={lang} size="lg" autoFocus showQuick onNavigate={() => dialogRef.current?.close()} />
           )}
           <p className="mt-3 hidden px-1 text-xs text-ink-3 sm:block">
             {t.shortcut} · <kbd className="font-sans">Esc</kbd> {t.close.toLowerCase()}

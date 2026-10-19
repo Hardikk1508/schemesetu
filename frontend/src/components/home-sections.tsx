@@ -1,5 +1,4 @@
-import { ArrowRight, FileCheck2, ListChecks, MessagesSquare, Mic } from "lucide-react";
-import Link from "next/link";
+import { FileCheck2, ListChecks, MessagesSquare } from "lucide-react";
 
 import { getDictionary } from "@/lib/i18n";
 import type { Lang } from "@/lib/locales";
@@ -35,22 +34,6 @@ export function HowItWorks({ lang }: { lang: Lang }) {
           );
         })}
       </ol>
-      <div className="mt-10 flex flex-wrap gap-3 md:justify-center">
-        <Link
-          href={`/${lang}/assistant`}
-          className="group inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 font-semibold text-white transition hover:bg-brand-strong"
-        >
-          <Mic className="size-4 text-marigold" aria-hidden="true" />
-          {t.tryVoice}
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-        </Link>
-        <Link
-          href={`/${lang}/check`}
-          className="inline-flex items-center rounded-full border border-line-strong bg-surface px-5 py-2.5 font-semibold transition-colors hover:border-ink-3"
-        >
-          {t.cta}
-        </Link>
-      </div>
     </section>
   );
 }

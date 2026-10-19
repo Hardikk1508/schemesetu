@@ -32,7 +32,12 @@ class User(Base):
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    phone: Mapped[str] = mapped_column(String(16), unique=True, index=True)  # E.164, e.g. +919876543210
+    # A user has a phone (OTP login), a username + password, or both.
+    phone: Mapped[str | None] = mapped_column(String(16), unique=True, index=True, nullable=True)  # E.164
+    username: Mapped[str | None] = mapped_column(String(32), unique=True, index=True, nullable=True)
+    password_hash: Mapped[str | None] = mapped_column(String(255), nullable=True)  # scrypt; never the password
+    failed_logins: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    locked_until: Mapped[datetime | None] = mapped_column(DateTime, nullable=True)
     lang: Mapped[str] = mapped_column(String(2), default="en")
     whatsapp_opt_in: Mapped[bool] = mapped_column(Boolean, default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, default=utcnow)
@@ -116,9 +121,30 @@ def get_engine() -> Engine:
     return _engine
 
 
+MIGRATIONS_DIR = Path(__file__).resolve().parents[1] / "migrations"
+
+
+def migrate(engine: Engine) -> None:
+    """Bring the schema up to date with Alembic migrations (backend/migrations)."""
+    from alembic import command
+    from alembic.config import Config
+    from sqlalchemy import inspect, text
+
+    cfg = Config()
+    cfg.set_main_option("script_location", str(MIGRATIONS_DIR))
+    with engine.begin() as connection:
+        cfg.attributes["connection"] = connection
+        tables = set(inspect(connection).get_table_names())
+        versioned = "alembic_version" in tables and bool(
+            connection.execute(text("SELECT count(*) FROM alembic_version")).scalar()
+        )
+        if "users" in tables and not versioned:
+            command.stamp(cfg, "0001")  # created by create_all before migrations existed
+        command.upgrade(cfg, "head")
+
+
 def init_db() -> None:
-    """Create missing tables. (Schema changes later should move to Alembic migrations.)"""
-    Base.metadata.create_all(get_engine())
+    migrate(get_engine())
 
 
 def new_session() -> Session:

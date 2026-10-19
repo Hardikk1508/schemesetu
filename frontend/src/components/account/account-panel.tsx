@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, LoaderCircle, LogOut, MessageCircle, Trash2 } from "lucide-react";
+import { ArrowRight, LoaderCircle, LogOut, MessageCircle, Smartphone, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -70,25 +70,27 @@ export function AccountPanel({ lang }: { lang: Lang }) {
     <div className="space-y-5">
       <section className={`animate-rise ${card}`}>
         <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{ta.title}</h1>
-        <p className="mt-3 text-ink-3">{ta.phone}</p>
-        <p className="text-xl font-semibold">{me.phone.replace(/^\+91(\d{5})(\d{5})$/, "+91 $1 $2")}</p>
+        {me.username && (
+          <>
+            <p className="mt-3 text-ink-3">{ta.username}</p>
+            <p className="text-xl font-semibold">{me.username}</p>
+          </>
+        )}
+        {me.phone && (
+          <>
+            <p className="mt-3 text-ink-3">{ta.phone}</p>
+            <p className="text-xl font-semibold">{me.phone.replace(/^\+91(\d{5})(\d{5})$/, "+91 $1 $2")}</p>
+          </>
+        )}
         <p className="mt-5 text-ink-3">{ta.savedAnswers}</p>
         <p className="font-semibold">{answered > 0 ? ta.savedCount(answered, when) : ta.noneSaved}</p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <Link
-            href={`/${lang}/check`}
-            className="inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 font-semibold text-white hover:bg-brand-strong"
-          >
-            {ta.continue}
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </Link>
-          <Link
-            href={`/${lang}/assistant`}
-            className="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-semibold hover:border-ink-3"
-          >
-            {t.nav.assistant}
-          </Link>
-        </div>
+        <Link
+          href={`/${lang}/check`}
+          className="mt-5 inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 font-semibold text-white hover:bg-brand-strong"
+        >
+          {ta.continue}
+          <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
       </section>
 
       <section className={`animate-rise ${card}`} style={{ animationDelay: "80ms" }}>
@@ -99,26 +101,39 @@ export function AccountPanel({ lang }: { lang: Lang }) {
           <div className="min-w-0 flex-1">
             <h2 className="text-lg font-bold">{ta.alertsTitle}</h2>
             <p className="mt-1 text-ink-2">{ta.alertsBody}</p>
-            <button
-              type="button"
-              role="switch"
-              aria-checked={me.whatsapp_opt_in}
-              onClick={toggleAlerts}
-              disabled={busy}
-              className="mt-4 inline-flex items-center gap-3 font-semibold disabled:opacity-60"
-            >
-              <span
-                className={`relative h-7 w-12 rounded-full transition-colors ${me.whatsapp_opt_in ? "bg-ok" : "bg-line-strong"}`}
+            {me.phone ? (
+              <button
+                type="button"
+                role="switch"
+                aria-checked={me.whatsapp_opt_in}
+                onClick={toggleAlerts}
+                disabled={busy}
+                className="mt-4 inline-flex items-center gap-3 font-semibold disabled:opacity-60"
               >
                 <span
-                  className={`absolute top-1 size-5 rounded-full bg-white shadow transition-all ${
-                    me.whatsapp_opt_in ? "left-6" : "left-1"
-                  }`}
-                />
-              </span>
-              {me.whatsapp_opt_in ? ta.alertsOn : ta.alertsOff}
-              {busy && <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />}
-            </button>
+                  className={`relative h-7 w-12 rounded-full transition-colors ${me.whatsapp_opt_in ? "bg-ok" : "bg-line-strong"}`}
+                >
+                  <span
+                    className={`absolute top-1 size-5 rounded-full bg-white shadow transition-all ${
+                      me.whatsapp_opt_in ? "left-6" : "left-1"
+                    }`}
+                  />
+                </span>
+                {me.whatsapp_opt_in ? ta.alertsOn : ta.alertsOff}
+                {busy && <LoaderCircle className="size-4 animate-spin" aria-hidden="true" />}
+              </button>
+            ) : (
+              <div className="mt-4">
+                <p className="text-sm text-ink-3">{ta.needPhone}</p>
+                <Link
+                  href={`/${lang}/login?mode=otp&next=/${lang}/account`}
+                  className="mt-2 inline-flex items-center gap-2 rounded-full bg-ok px-5 py-2.5 font-semibold text-white hover:opacity-90"
+                >
+                  <Smartphone className="size-4" aria-hidden="true" />
+                  {ta.addPhone}
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </section>

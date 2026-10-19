@@ -15,9 +15,9 @@ SchemeSetu ("setu" means bridge) helps people discover central government scheme
 - **Explainable results.** Every scheme shows *why*: each condition, the user's answer, the rule text and the official link, plus the documents to keep ready.
 - **The fewest questions possible.** The step-by-step check always asks the question that settles the most schemes next.
 - **30 schemes in 9 topics.** Students & youth (scholarships, PM Internship, NATS, education loans), farmers, women, seniors, jobs, business and startups, housing, health and pensions.
-- **Search in any language.** "naukri", "kisan" and "छात्रवृत्ति" all work, from the home page or with **/** or **⌘K** anywhere.
+- **Search in any language.** "naukri", "kisan" and "छात्रवृत्ति" all work, from the header search box, or with **/** or **⌘K** on any page.
 - **Bilingual.** The full interface is in English and Hindi, at `/en/…` and `/hi/…`.
-- **Accounts and alerts.** Phone OTP login, saved answers, and a WhatsApp alert when a newly added scheme matches someone's saved answers.
+- **No sign-up needed.** Everything works without an account. An optional account (phone OTP, or username and password) saves answers across devices and sends a WhatsApp alert when a newly added scheme matches them.
 - **Private by design.** It never asks for Aadhaar or any ID number; the data model has no field for one, so it's dropped even if typed. Users can delete their account and data.
 
 ## Screenshots
@@ -29,6 +29,8 @@ SchemeSetu ("setu" means bridge) helps people discover central government scheme
 | ![Eligibility results](docs/screenshots/results.png) | ![Students and youth topic](docs/screenshots/topic-students.png) |
 | **How it works** | **Search (English, Hindi, Hinglish)** |
 | ![How it works section](docs/screenshots/how-it-works.png) | ![Search dialog](docs/screenshots/search.png) |
+| **Optional login: phone OTP or username & password** | **Account: saved answers and WhatsApp alerts** |
+| ![Login with two options](docs/screenshots/login.png) | ![Account page](docs/screenshots/account.png) |
 
 <p align="center">
   <img src="docs/screenshots/mobile-home-hi.png" width="230" alt="Home page in Hindi on a phone">
@@ -66,8 +68,8 @@ flowchart TB
     subgraph API["FastAPI backend"]
         E["Rules engine<br/>(no AI)"]
         A["Chat assistant<br/>/api/chat"]
-        C["Accounts · OTP · alerts"]
-        D[("SQLite / PostgreSQL<br/>SQLAlchemy 2")]
+        C["Accounts<br/>OTP or password · alerts"]
+        D[("SQLite / PostgreSQL<br/>SQLAlchemy 2 · Alembic")]
         J["schemes.json<br/>topics, rules, sources"]
     end
     L["Groq API<br/>gpt-oss-20b / 120b"]
@@ -85,14 +87,15 @@ flowchart TB
 | Layer | Tools |
 |---|---|
 | Frontend | Next.js 16 (App Router, Cache Components, partial prerendering), React 19, TypeScript, Tailwind CSS v4, lucide icons |
-| Backend | Python 3.13, FastAPI, Pydantic v2, SQLAlchemy 2 |
+| Backend | Python 3.13, FastAPI, Pydantic v2, SQLAlchemy 2, Alembic migrations |
+| Accounts | Phone OTP (HMAC-hashed codes, rate limits) or username + password (scrypt hashes, lockout after 5 failed tries); HttpOnly session cookie |
 | AI | Groq free tier (OpenAI-compatible): `openai/gpt-oss-20b` for understanding, `openai/gpt-oss-120b` for replies. Swappable for Ollama or OpenAI |
 | Voice | Browser Web Speech API: speech recognition and synthesis (Hindi and Indian English) |
 | Data | 30 central schemes with bilingual text, rules and official sources (`backend/app/data/schemes.json`) |
 
 ## Quality
 
-- **168 backend tests:** rules engine, API, accounts and OTP, alerts, chat, and AI guardrails, with the model mocked.
+- **185 backend tests:** rules engine, API, OTP and password login, database migrations, alerts, chat, and AI guardrails, with the model mocked.
 - **Eligibility eval:** 29 hand-labelled personas, **143 of 143** (scheme, persona) pairs right (`python -m eval.run_eval`).
 - **Understanding eval:** 25 labelled English, Hindi and Hinglish messages. The rule-based parser gets **22 of 22** standard cases; the live model is scored with `--llm`.
 - **Browser tests:** every flow in Chrome and in WebKit (Safari's engine), desktop and phone.
@@ -108,6 +111,8 @@ cp .env.example .env        # optional: add GROQ_API_KEY for the AI assistant
 .venv/bin/uvicorn app.api:app --reload --port 8000
 ```
 
+The API creates and upgrades its database on startup (SQLite by default; set `DATABASE_URL` for PostgreSQL). After changing a model in `app/db.py`, generate a migration with `.venv/bin/alembic revision --autogenerate -m "describe the change"`.
+
 **Frontend** (Node 22):
 
 ```sh
@@ -118,7 +123,7 @@ npm run dev                 # http://localhost:3000
 
 If the API isn't on port 8000, put `BACKEND_URL=http://127.0.0.1:<port>` in `frontend/.env.local`.
 
-Without a `GROQ_API_KEY`, the assistant runs in **basic mode** with the built-in parser. A free key comes from [console.groq.com](https://console.groq.com/keys). To test login without SMS or WhatsApp, set a fictional number in `backend/.env`: `OTP_TEST_NUMBERS=9999999999:123456`. Codes are never shown in the app.
+Without a `GROQ_API_KEY`, the assistant runs in **basic mode** with the built-in parser. A free key comes from [console.groq.com](https://console.groq.com/keys). Username and password login works out of the box. To test phone login without SMS or WhatsApp, set a fictional number in `backend/.env`: `OTP_TEST_NUMBERS=9999999999:123456`. Codes are never shown in the app.
 
 **Checks:**
 
@@ -138,8 +143,10 @@ backend/
     ai/assistant.py            chat: understand → validate → decide → reply → guard
     ai/fallback.py             rule-based English/Hindi/Hinglish parser and glossary
     ai/llm.py                  OpenAI-compatible client (Groq by default)
-    accounts.py, notify.py     OTP login, saved answers, WhatsApp alerts
+    accounts.py, notify.py     OTP and password login, saved answers, WhatsApp alerts
+    db.py                      SQLAlchemy models
     data/schemes.json          topics and schemes (bilingual, cited)
+  migrations/                  Alembic migrations (applied on startup)
   eval/                        labelled personas and chat messages
   tests/
 frontend/
@@ -154,7 +161,7 @@ docs/screenshots/
 
 - Verify every scheme's rules against official guidelines, and add state schemes.
 - Real OTP and alert delivery over SMS or WhatsApp (needs a provider account).
-- Public deployment with PostgreSQL and database migrations (Alembic).
+- Public deployment with PostgreSQL.
 - More Indian languages, and Hindi translations of rule citations.
 
 ## Disclaimer

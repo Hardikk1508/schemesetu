@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { getDictionary } from "@/lib/i18n";
 import type { Lang } from "@/lib/locales";
 
-import { AccountLink, AskAiLink } from "./account/header-links";
+import { AccountLink } from "./account/header-links";
 import { LangToggle, LangToggleFallback } from "./lang-toggle";
 import { Wordmark } from "./logo";
 import { SearchDialog } from "./search/search-dialog";
@@ -23,7 +23,6 @@ export function SiteHeader({ lang }: { lang: Lang }) {
         </Suspense>
         <div className="ml-auto flex items-center gap-2">
           <SearchDialog lang={lang} />
-          <AskAiLink lang={lang} />
           <Suspense fallback={<LangToggleFallback lang={lang} label={t.nav.language} />}>
             <LangToggle lang={lang} label={t.nav.language} />
           </Suspense>

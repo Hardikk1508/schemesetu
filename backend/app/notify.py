@@ -44,7 +44,7 @@ def notify_new_schemes(db: Session, dry_run: bool = False) -> NotifyReport:
     report.new_schemes = [s.id for s in new]
 
     if new and not report.first_run:
-        users = db.scalars(select(User).where(User.whatsapp_opt_in.is_(True))).all()
+        users = db.scalars(select(User).where(User.whatsapp_opt_in.is_(True), User.phone.is_not(None))).all()
         for user in users:
             if user.profile is None:
                 continue

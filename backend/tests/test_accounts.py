@@ -3,15 +3,16 @@
 from __future__ import annotations
 
 import itertools
+from datetime import timedelta
 
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import select
 
 import app.accounts as accounts
-from app.accounts import normalize_phone
+from app.accounts import _otp_hash, normalize_phone
 from app.api import app
-from app.db import OtpCode, User, new_session
+from app.db import OtpCode, User, new_session, utcnow
 from app.messaging import SendResult
 
 _numbers = itertools.count(9000000001)
@@ -155,3 +156,103 @@ def test_test_number_uses_fixed_code_and_sends_nothing(outbox):
     res = client.post("/api/auth/otp/request", json={"phone": "99999 99999"}).json()
     assert res == {"sent": True, "channel": "test"} and outbox == {}
     assert client.post("/api/auth/otp/verify", json={"phone": "9999999999", "code": "123456"}).status_code == 200
+
+
+# ------------------------------------------------------------------ username + password
+
+_users = itertools.count(1)
+
+
+def fresh_username() -> str:
+    return f"tester_{next(_users)}"
+
+
+def test_register_logs_in_and_me_shows_username():
+    client = TestClient(app)
+    name = fresh_username()
+    res = client.post("/api/auth/register", json={"username": name.upper(), "password": "secret123"})
+    assert res.status_code == 201, res.text
+    me = client.get("/api/me").json()
+    assert me["username"] == name and me["phone"] is None  # usernames are stored lowercase
+
+
+def test_password_is_stored_hashed():
+    from app.accounts import verify_password
+
+    client = TestClient(app)
+    name = fresh_username()
+    client.post("/api/auth/register", json={"username": name, "password": "secret123"})
+    with new_session() as db:
+        stored = db.scalar(select(User).where(User.username == name)).password_hash
+    assert stored.startswith("scrypt$") and "secret123" not in stored
+    assert verify_password("secret123", stored) and not verify_password("secret124", stored)
+
+
+def test_login_and_logout_with_password():
+    name = fresh_username()
+    TestClient(app).post("/api/auth/register", json={"username": name, "password": "secret123"})
+    client = TestClient(app)
+    assert client.post("/api/auth/login", json={"username": name, "password": "secret123"}).status_code == 200
+    assert client.get("/api/me").json()["username"] == name
+    client.post("/api/auth/logout")
+    assert client.get("/api/me").status_code == 401
+
+
+def test_wrong_password_and_unknown_user_look_the_same():
+    name = fresh_username()
+    client = TestClient(app)
+    client.post("/api/auth/register", json={"username": name, "password": "secret123"})
+    wrong = client.post("/api/auth/login", json={"username": name, "password": "nope12345"})
+    unknown = client.post("/api/auth/login", json={"username": "no_such_user_x", "password": "nope12345"})
+    assert wrong.status_code == unknown.status_code == 401
+    assert wrong.json() == unknown.json()
+
+
+def test_five_wrong_passwords_lock_the_account():
+    name = fresh_username()
+    client = TestClient(app)
+    client.post("/api/auth/register", json={"username": name, "password": "secret123"})
+    for _ in range(5):
+        assert client.post("/api/auth/login", json={"username": name, "password": "wrong1234"}).status_code == 401
+    # Locked: even the right password is refused for now.
+    assert client.post("/api/auth/login", json={"username": name, "password": "secret123"}).status_code == 429
+
+
+def test_duplicate_username_rejected():
+    name = fresh_username()
+    TestClient(app).post("/api/auth/register", json={"username": name, "password": "secret123"})
+    res = TestClient(app).post("/api/auth/register", json={"username": name, "password": "other1234"})
+    assert res.status_code == 409
+
+
+@pytest.mark.parametrize(
+    "username,password",
+    [("ab", "secret123"), ("has space", "secret123"), ("bad!name", "secret123"), ("okname", "short1"),
+     ("okname2", "onlyletters"), ("okname3", "12345678")],
+)
+def test_invalid_registration_rejected(username, password):
+    assert TestClient(app).post("/api/auth/register", json={"username": username, "password": password}).status_code == 422
+
+
+def test_username_account_needs_a_phone_for_whatsapp_and_can_add_one(outbox):
+    client = TestClient(app)
+    client.post("/api/auth/register", json={"username": fresh_username(), "password": "secret123"})
+    assert client.patch("/api/me", json={"whatsapp_opt_in": True}).status_code == 400
+    phone = fresh_phone()
+    code = request_code(client, phone, outbox)
+    me = client.post("/api/auth/otp/verify", json={"phone": phone, "code": code}).json()
+    assert me["phone"] == f"+91{phone}" and me["username"]  # same account, now with a phone
+    assert client.patch("/api/me", json={"whatsapp_opt_in": True}).json()["whatsapp_opt_in"] is True
+
+
+def test_cannot_add_a_phone_that_belongs_to_someone_else(outbox):
+    phone = fresh_phone()
+    login(TestClient(app), phone, outbox)  # the phone now has its own account
+    client = TestClient(app)
+    client.post("/api/auth/register", json={"username": fresh_username(), "password": "secret123"})
+    # A fresh code for that phone (inserted directly, to skip the 30-second resend limit).
+    with new_session() as db:
+        db.add(OtpCode(phone=f"+91{phone}", code_hash=_otp_hash(f"+91{phone}", "246810"), expires_at=utcnow() + timedelta(minutes=5)))
+        db.commit()
+    res = client.post("/api/auth/otp/verify", json={"phone": phone, "code": "246810"})
+    assert res.status_code == 409

@@ -165,6 +165,12 @@ export type ChatStatus = { ai_mode: "llm" | "basic"; model: string | null };
 
 export type SavedAnswers = { profile: Profile; skipped: string[]; updated_at: string | null };
 
-export type Me = { phone: string; lang: string; whatsapp_opt_in: boolean; saved: SavedAnswers | null };
+export type Me = {
+  phone: string | null;
+  username: string | null;
+  lang: string;
+  whatsapp_opt_in: boolean;
+  saved: SavedAnswers | null;
+};
 
 export type OtpSent = { sent: boolean; channel: string };

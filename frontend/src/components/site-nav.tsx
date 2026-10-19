@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Sparkles, UserRound, X } from "lucide-react";
+import { Menu, UserRound, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
@@ -67,7 +67,7 @@ export function NavLinks({ lang, pathname }: { lang: Lang; pathname: string | nu
   );
 }
 
-/** Menu for phones and tablets: every link the desktop header shows, plus account. */
+/** Menu for phones and tablets: every link the desktop header shows, plus account. Ask AI is the floating button. */
 export function MobileMenu({ lang }: { lang: Lang }) {
   const t = getDictionary(lang).nav;
   const pathname = usePathname();
@@ -84,7 +84,6 @@ export function MobileMenu({ lang }: { lang: Lang }) {
   const items: NavItem[] = [
     { href: `/${lang}`, label: t.home, active: (p) => p === `/${lang}` },
     ...navItems(lang),
-    { href: `/${lang}/assistant`, label: t.assistant, active: (p) => p.startsWith(`/${lang}/assistant`) },
     me
       ? { href: `/${lang}/account`, label: t.account, active: (p) => p.startsWith(`/${lang}/account`) }
       : { href: `/${lang}/login`, label: t.login, active: (p) => p.startsWith(`/${lang}/login`) },
@@ -119,9 +118,7 @@ export function MobileMenu({ lang }: { lang: Lang }) {
               {items.map((item) => {
                 const active = item.active(pathname);
                 const icon =
-                  item.href.endsWith("/assistant") ? (
-                    <Sparkles className="size-4 text-marigold" aria-hidden="true" />
-                  ) : item.href.endsWith("/login") || item.href.endsWith("/account") ? (
+                  item.href.endsWith("/login") || item.href.endsWith("/account") ? (
                     <UserRound className="size-4" aria-hidden="true" />
                   ) : null;
                 return (
