@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowRight, Eye, EyeOff, KeyRound, LoaderCircle, ShieldCheck, Smartphone } from "lucide-react";
+import { ArrowRight, Eye, EyeOff, KeyRound, LoaderCircle, ShieldCheck, Smartphone, UserPlus } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useId, useState, type FormEvent } from "react";
+import { useEffect, useId, useState, type FormEvent, type ReactNode } from "react";
 
 import { setMe, useMe } from "@/lib/account";
 import { answersFrom, loadSaved, persistAnswers } from "@/lib/answers";
@@ -15,7 +15,10 @@ const RESEND_SECONDS = 30;
 
 type Method = "otp" | "password";
 
-/** Login with a phone OTP or a username + password. A logged-in account without a phone uses the OTP form to add one. */
+/**
+ * Log in or sign up with a phone OTP, or with a username + password.
+ * ?mode=otp|password|signup picks the starting form. A logged-in account without a phone uses the OTP form to add one.
+ */
 export function LoginForm({ lang }: { lang: Lang }) {
   const t = getDictionary(lang).auth;
   const router = useRouter();
@@ -24,17 +27,22 @@ export function LoginForm({ lang }: { lang: Lang }) {
   const next = params.get("next")?.startsWith("/") ? params.get("next")! : `/${lang}/account`;
   const addingPhone = !!me && !me.phone;
   const mode = params.get("mode");
-  const [method, setMethod] = useState<Method>(mode === "password" ? "password" : "otp");
+  const [method, setMethod] = useState<Method>(mode === "password" || mode === "signup" ? "password" : "otp");
+  const [registering, setRegistering] = useState(mode === "signup");
   const [error, setError] = useState<string | null>(null);
   const [visit, setVisit] = useState(0);
   const active: Method = addingPhone ? "otp" : method;
+  const signingUp = active === "password" && registering;
 
   // Next keeps this route's state alive between visits: follow ?mode= when it changes,
   // and start from empty forms once the user has logged out.
   const [seen, setSeen] = useState({ mode, me });
   if (seen.mode !== mode || seen.me !== me) {
     setSeen({ mode, me });
-    if (seen.mode !== mode && (mode === "otp" || mode === "password")) setMethod(mode);
+    if (seen.mode !== mode && (mode === "otp" || mode === "password" || mode === "signup")) {
+      setMethod(mode === "otp" ? "otp" : "password");
+      setRegistering(mode === "signup");
+    }
     if (seen.me && me === null) {
       setVisit((v) => v + 1);
       setError(null);
@@ -64,6 +72,13 @@ export function LoginForm({ lang }: { lang: Lang }) {
     return getDictionary(lang).checker.error;
   }
 
+  const onError = (e: unknown | null) => setError(e ? explain(e) : null);
+  const alert = error && (
+    <p role="alert" className="rounded-xl bg-danger-soft px-4 py-3 font-semibold text-danger">
+      {error}
+    </p>
+  );
+
   const tab = (m: Method) =>
     `flex flex-1 items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors sm:text-base ${
       active === m ? "bg-surface text-ink shadow-card" : "text-ink-2 hover:text-ink"
@@ -71,8 +86,10 @@ export function LoginForm({ lang }: { lang: Lang }) {
 
   return (
     <div className="animate-rise rounded-3xl border border-line bg-surface p-6 shadow-card sm:p-8">
-      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{addingPhone ? t.addPhoneTitle : t.title2}</h1>
-      <p className="mt-2 text-ink-2">{addingPhone ? t.addPhoneBody : t.subtitle}</p>
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        {addingPhone ? t.addPhoneTitle : signingUp ? t.signupTitle : t.title2}
+      </h1>
+      <p className="mt-2 text-ink-2">{addingPhone ? t.addPhoneBody : signingUp ? t.signupSubtitle : t.subtitle}</p>
 
       {!addingPhone && (
         <div role="tablist" aria-label={t.title2} className="mt-6 flex gap-1 rounded-2xl bg-paper p-1">
@@ -106,16 +123,22 @@ export function LoginForm({ lang }: { lang: Lang }) {
       )}
 
       {active === "otp" ? (
-        <OtpForm key={visit} lang={lang} onDone={finish} onError={(e) => setError(e ? explain(e) : null)} />
+        <OtpForm key={visit} lang={lang} onDone={finish} onError={onError} alert={alert} hint={!addingPhone} />
       ) : (
-        <PasswordForm key={visit} lang={lang} onDone={finish} onError={(e) => setError(e ? explain(e) : null)} />
+        <PasswordForm
+          key={visit}
+          lang={lang}
+          onDone={finish}
+          onError={onError}
+          alert={alert}
+          registering={registering}
+          onSwitch={() => {
+            setRegistering((r) => !r);
+            setError(null);
+          }}
+        />
       )}
 
-      {error && (
-        <p role="alert" className="mt-4 rounded-xl bg-danger-soft px-4 py-3 font-semibold text-danger">
-          {error}
-        </p>
-      )}
       <p className="mt-6 flex gap-2 text-sm text-ink-3">
         <ShieldCheck className="size-4 shrink-0" aria-hidden="true" />
         {active === "password" ? t.passwordPrivacy : t.privacy}
@@ -128,10 +151,18 @@ const inputClass =
   "min-h-13 w-full rounded-xl border-2 border-line-strong bg-surface px-4 text-lg outline-none focus:border-brand";
 const buttonClass =
   "inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 text-lg font-semibold text-white transition hover:bg-brand-strong disabled:opacity-50";
+const secondaryButtonClass =
+  "inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-xl border-2 border-line-strong bg-surface px-5 text-lg font-semibold text-ink transition hover:border-brand hover:text-brand";
 
-type FormProps = { lang: Lang; onDone: (me: Me) => Promise<void>; onError: (e: unknown | null) => void };
+type FormProps = {
+  lang: Lang;
+  onDone: (me: Me) => Promise<void>;
+  onError: (e: unknown | null) => void;
+  /** The current error, shown right under the submit button. */
+  alert: ReactNode;
+};
 
-function OtpForm({ lang, onDone, onError }: FormProps) {
+function OtpForm({ lang, onDone, onError, alert, hint }: FormProps & { hint: boolean }) {
   const t = getDictionary(lang).auth;
   const [step, setStep] = useState<"phone" | "code">("phone");
   const [phone, setPhone] = useState("");
@@ -195,6 +226,8 @@ function OtpForm({ lang, onDone, onError }: FormProps) {
           {t.sendCode}
           <ArrowRight className="size-5" aria-hidden="true" />
         </button>
+        {alert}
+        {hint && <p className="text-center text-sm text-ink-2">{t.otpNewHint}</p>}
       </form>
     );
   }
@@ -218,6 +251,7 @@ function OtpForm({ lang, onDone, onError }: FormProps) {
         {busy ? <LoaderCircle className="size-5 animate-spin" aria-hidden="true" /> : null}
         {t.verify}
       </button>
+      {alert}
       <div className="flex flex-wrap justify-between gap-2 text-sm font-semibold">
         <button type="button" onClick={() => setStep("phone")} className="text-ink-2 hover:text-ink">
           {t.changeNumber}
@@ -230,16 +264,21 @@ function OtpForm({ lang, onDone, onError }: FormProps) {
   );
 }
 
-function PasswordForm({ lang, onDone, onError }: FormProps) {
+function PasswordForm({
+  lang,
+  onDone,
+  onError,
+  alert,
+  registering,
+  onSwitch,
+}: FormProps & { registering: boolean; onSwitch: () => void }) {
   const t = getDictionary(lang).auth;
-  const [mode, setMode] = useState<"login" | "register">("login");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [visible, setVisible] = useState(false);
   const [busy, setBusy] = useState(false);
   const id = useId();
-  const registering = mode === "register";
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -339,19 +378,22 @@ function PasswordForm({ lang, onDone, onError }: FormProps) {
         {registering ? t.createAccount : t.signIn}
         <ArrowRight className="size-5" aria-hidden="true" />
       </button>
-      <p className="text-center text-sm text-ink-2">
-        {registering ? t.haveAccount : t.noAccount}{" "}
-        <button
-          type="button"
-          onClick={() => {
-            setMode(registering ? "login" : "register");
-            onError(null);
-          }}
-          className="font-semibold text-brand hover:text-brand-strong"
-        >
-          {registering ? t.signIn : t.createAccount}
-        </button>
-      </p>
+      {alert}
+
+      {/* Signing up is as visible as logging in: a full button, not a small link. */}
+      <div className="flex items-center gap-3 pt-2 text-sm text-ink-3">
+        <span className="h-px flex-1 bg-line" aria-hidden="true" />
+        {registering ? t.haveAccount : t.noAccount}
+        <span className="h-px flex-1 bg-line" aria-hidden="true" />
+      </div>
+      <button type="button" onClick={onSwitch} className={secondaryButtonClass}>
+        {registering ? (
+          <KeyRound className="size-5" aria-hidden="true" />
+        ) : (
+          <UserPlus className="size-5" aria-hidden="true" />
+        )}
+        {registering ? t.signIn : t.createAccount}
+      </button>
     </form>
   );
 }
